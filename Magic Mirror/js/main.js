@@ -11,6 +11,14 @@ var SCOPES = "https://www.googleapis.com/auth/calendar.readonly";
 var authorizeButton = document.getElementById('authorize-button');
 var signoutButton = document.getElementById('signout-button');
 
+var complimentList = ["You look hawt today.", "Hello beautiful.", "You look particularly stunning today."]
+var complimentElement = document.getElementById('compliment');
+complimentElement.textContent = complimentList[1];
+
+var dateDisplay = Date();
+document.getElementById('datetime').innerHTML = Date();
+
+
 /**
  *  On load, called to load the auth2 library and API client library.
  */
