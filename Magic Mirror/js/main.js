@@ -23,6 +23,26 @@ var updateTime = function () {
     datetimeElement.innerHTML = date.format('dddd, MMMM Do YYYY, h:mm:ss a');
 }
 
+var weatherElement = document.getElementById("weather")
+var weatherAPIKey = "384659ebba4a6ff36629c592ebf3bd65"
+var goshenLatitude = 41.582;
+var goshenLongitude = 85.834;
+var currentWeatherAPIRequest = "http://api.openweathermap.org/data/2.5/weather?lat=" + goshenLatitude.toString() + "&lon=" + goshenLongitude.toString() + "&APPID=" + weatherAPIKey;
+
+var request = new XMLHttpRequest();
+
+request.onreadystatechange = function () {
+    if (this.readyState === 4 && this.status === 200) {
+        var jsonObj = JSON.parse(this.responseText);
+        var weatherObj = JSON.parse(jsonObj.weather);
+        weatherElement.innerHTML = "";
+        weatherElement.innerHTML = "weather:";
+    }
+}
+
+request.open("GET", currentWeatherAPIRequest, true);
+request.send();
+
 document.addEventListener('DOMContentLoaded', function () {
     updateTime();
     setInterval(updateTime, 1000);
