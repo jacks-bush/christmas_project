@@ -11,13 +11,22 @@ var SCOPES = "https://www.googleapis.com/auth/calendar.readonly";
 var authorizeButton = document.getElementById('authorize-button');
 var signoutButton = document.getElementById('signout-button');
 
-var complimentList = ["You look hawt today.", "Hello beautiful.", "You look particularly stunning today."]
+var complimentList = ["You look hawt today.", "Morning", "You look particularly stunning today."]
 var complimentElement = document.getElementById('compliment');
 complimentElement.textContent = complimentList[1];
 
-var dateDisplay = Date();
-document.getElementById('datetime').innerHTML = Date();
+var datetimeElement = document.getElementById('datetime');
+var date = null;
 
+var updateTime = function () {
+    date = moment(new Date());
+    datetimeElement.innerHTML = date.format('dddd, MMMM Do YYYY, h:mm:ss a');
+}
+
+document.addEventListener('DOMContentLoaded', function () {
+    updateTime();
+    setInterval(updateTime, 1000);
+}, false);
 
 /**
  *  On load, called to load the auth2 library and API client library.

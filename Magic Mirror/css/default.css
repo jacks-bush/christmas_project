@@ -1,17 +1,16 @@
 ﻿body {
     padding: 0;
     margin: 0 auto;
-    font-size: 20px;
-    font-family: 'Roboto', sans-serif;
+    font-size: 24px;
+    font-family: 'HelveticaNeueLTStd-Lt';
     text-decoration: none;
     background-color: black;
 }
 
 #compliment {
     color: white;
-    font-family: 'Times New Roman', Times, serif;
     text-align: center;
-    font-size: 50px;
+    font-size: 48px;
 }
 
 #footer {
@@ -23,6 +22,17 @@
 #datetime {
     text-align: center;
     color: white;
-    font-family: 'Times New Roman', Times, serif;
-    font-size: 50px;
+    font-size: 48px;
+}
+
+@font-face {
+    font-family: 'HelveticaNeueLTStd-Lt';
+    src: url('Helvetica Neue LT Std/HelveticaNeueLTStd-Lt.eot');
+    src: url('Helvetica Neue LT Std/HelveticaNeueLTStd-Lt.woff2') format('woff2'), 
+         url('Helvetica Neue LT Std/HelveticaNeueLTStd-Lt.woff') format('woff'), 
+         url('Helvetica Neue LT Std/HelveticaNeueLTStd-Lt.ttf') format('truetype'), 
+         url('Helvetica Neue LT Std/HelveticaNeueLTStd-Lt.svg#HelveticaNeueLTStd-Lt') format('svg'), 
+         url('Helvetica Neue LT Std/HelveticaNeueLTStd-Lt.eot?#iefix') format('embedded-opentype');
+    font-weight: normal;
+    font-style: normal;
 }
