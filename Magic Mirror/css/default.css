@@ -25,14 +25,26 @@
     font-size: 48px;
 }
 
+#weather {
+    text-align: center;
+    color: white;
+    font-size: 18px;
+}
+
+#weather_forecast {
+    text-align: center;
+    color: white;
+    font-size: 18px;
+}
+
 @font-face {
     font-family: 'HelveticaNeueLTStd-Lt';
-    src: url('Helvetica Neue LT Std/HelveticaNeueLTStd-Lt.eot');
-    src: url('Helvetica Neue LT Std/HelveticaNeueLTStd-Lt.woff2') format('woff2'), 
-         url('Helvetica Neue LT Std/HelveticaNeueLTStd-Lt.woff') format('woff'), 
-         url('Helvetica Neue LT Std/HelveticaNeueLTStd-Lt.ttf') format('truetype'), 
-         url('Helvetica Neue LT Std/HelveticaNeueLTStd-Lt.svg#HelveticaNeueLTStd-Lt') format('svg'), 
-         url('Helvetica Neue LT Std/HelveticaNeueLTStd-Lt.eot?#iefix') format('embedded-opentype');
+    src: url('fonts/Helvetica Neue LT Std/HelveticaNeueLTStd-Lt.eot');
+    src: url('fonts/Helvetica Neue LT Std/HelveticaNeueLTStd-Lt.woff2') format('woff2'), 
+         url('fonts/Helvetica Neue LT Std/HelveticaNeueLTStd-Lt.woff') format('woff'), 
+         url('fonts/Helvetica Neue LT Std/HelveticaNeueLTStd-Lt.ttf') format('truetype'), 
+         url('fonts/Helvetica Neue LT Std/HelveticaNeueLTStd-Lt.svg#HelveticaNeueLTStd-Lt') format('svg'), 
+         url('fonts/Helvetica Neue LT Std/HelveticaNeueLTStd-Lt.eot?#iefix') format('embedded-opentype');
     font-weight: normal;
     font-style: normal;
 }

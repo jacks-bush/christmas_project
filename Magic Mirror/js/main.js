@@ -24,24 +24,39 @@ var updateTime = function () {
 }
 
 var weatherElement = document.getElementById("weather")
+var weatherForecastElement = document.getElementById("weather_forecast")
 var weatherAPIKey = "384659ebba4a6ff36629c592ebf3bd65"
+var forecastAPIKey = "d1e86148c12ee13fcc88d14442e7589e"
 var goshenLatitude = 41.582;
 var goshenLongitude = 85.834;
-var currentWeatherAPIRequest = "http://api.openweathermap.org/data/2.5/weather?lat=" + goshenLatitude.toString() + "&lon=" + goshenLongitude.toString() + "&APPID=" + weatherAPIKey;
+var currentWeatherAPIRequest = "http://api.openweathermap.org/data/2.5/weather?lat=" + goshenLatitude.toString() + "&lon=" + goshenLongitude.toString() + "&units=imperial&APPID=" + weatherAPIKey;
+var forecastWeatherAPIRequest = "http://api.openweathermap.org/data/2.5/forecast/daily?lat=" + goshenLatitude.toString() + "&lon=" + goshenLongitude.toString() + "&cnt=5&units=imperial&APPID=" + weatherAPIKey;
 
 var request = new XMLHttpRequest();
 
 request.onreadystatechange = function () {
     if (this.readyState === 4 && this.status === 200) {
         var jsonObj = JSON.parse(this.responseText);
-        var weatherObj = JSON.parse(jsonObj.weather);
-        weatherElement.innerHTML = "";
-        weatherElement.innerHTML = "weather:";
+        weatherElement.innerHTML = "weather: " + jsonObj.weather[0].main;
+        weatherElement.innerHTML += "\r\ncurrent temp: " + jsonObj.main.temp;
     }
 }
 
 request.open("GET", currentWeatherAPIRequest, true);
 request.send();
+
+var requestForecast = new XMLHttpRequest();
+
+requestForecast.onreadystatechange = function () {
+    if (this.readyState === 4 && this.status === 200) {
+        var jsonObj = JSON.parse(this.responseText);
+        weatherForecastElement.innerHTML = "day high " + jsonObj.list[0].temp.max;
+        weatherForecastElement.innerHTML = "day low " + jsonObj.list[0].temp.min;
+    }
+}
+
+requestForecast.open("GET", forecastWeatherAPIRequest, true);
+requestForecast.send();
 
 document.addEventListener('DOMContentLoaded', function () {
     updateTime();
