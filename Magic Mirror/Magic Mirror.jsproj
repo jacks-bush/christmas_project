@@ -62,11 +62,6 @@
     <Content Include="css\weather-icons-wind.min.css" />
     <Content Include="css\weather-icons.css" />
     <Content Include="css\weather-icons.min.css" />
-    <Content Include="css\weathericons-regular-webfont.eot" />
-    <Content Include="css\weathericons-regular-webfont.svg" />
-    <Content Include="css\weathericons-regular-webfont.ttf" />
-    <Content Include="css\weathericons-regular-webfont.woff" />
-    <Content Include="css\weathericons-regular-webfont.woff2" />
     <Content Include="index.html" />
     <Content Include="images\LockScreenLogo.scale-200.png" />
     <Content Include="images\SplashScreen.scale-200.png" />
@@ -78,6 +73,11 @@
     <Content Include="js\main.js" />
     <Content Include="css\default.css" />
     <Content Include="js\moment.js" />
+    <Content Include="weathericons-regular-webfont.eot" />
+    <Content Include="weathericons-regular-webfont.svg" />
+    <Content Include="weathericons-regular-webfont.ttf" />
+    <Content Include="weathericons-regular-webfont.woff" />
+    <Content Include="weathericons-regular-webfont.woff2" />
     <None Include="Magic Mirror_TemporaryKey.pfx" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)\$(WMSJSProjectDirectory)\Microsoft.VisualStudio.$(WMSJSProject).targets" />

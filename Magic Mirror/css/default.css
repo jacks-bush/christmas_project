@@ -3,8 +3,8 @@
     margin: 0 auto;
     font-size: 24px;
     font-family: 'HelveticaNeueLTStd-Lt';
-    text-decoration: none;
     background-color: black;
+    color: white;
 }
 
 #compliment {
@@ -35,6 +35,11 @@
     text-align: center;
     color: white;
     font-size: 18px;
+}
+
+#weather_icon{
+    font-family: 'weathericons';
+    color: white;
 }
 
 @font-face {

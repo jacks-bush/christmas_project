@@ -24,7 +24,7 @@ var updateTime = function () {
 }
 
 var weatherElement = document.getElementById("weather")
-
+var weatherIconElement = document.getElementById("weather_icon");
 var request = new XMLHttpRequest();
 
 request.onreadystatechange = function () {
@@ -35,10 +35,10 @@ request.onreadystatechange = function () {
         weatherElement.innerHTML += "<br/>day high: " + jsonObj.query.results.channel.item.forecast[0].high;
         weatherElement.innerHTML += "<br/>day low: " + jsonObj.query.results.channel.item.forecast[0].low;
         weatherElement.innerHTML += "<br/>day forecast: " + jsonObj.query.results.channel.item.forecast[0].text;
+        weatherIconElement.innerHTML = "<i class=\"wi wi-yahoo-" + jsonObj.query.results.channel.item.condition.code + "\"></i>";
     }
 }
 
-var yahooConditionCodesToIconsListCurrent = ['wi-tornado', 'wi-hurricane', 'wi-hurricane', 'wi-thunderstorm', 'wi-thunderstorm', 'wi-rain-mix', 'wi-sleet', 'wi-snow', 'wi-sleet', 'wi-showers', 'wi-sleet', 'wi-showers', 'wi-showers']
 var currentWeatherAPIRequest = "https://query.yahooapis.com/v1/public/yql?q=select * from weather.forecast where woeid = 12777784&format=json"
 request.open("GET", currentWeatherAPIRequest, true);
 request.send();
