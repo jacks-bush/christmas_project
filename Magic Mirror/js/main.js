@@ -23,25 +23,38 @@ var updateTime = function () {
     datetimeElement.innerHTML = date.format('dddd, MMMM Do YYYY, h:mm:ss a');
 }
 
-var weatherElement = document.getElementById("weather")
-var weatherIconElement = document.getElementById("weather_icon");
-var request = new XMLHttpRequest();
+var weatherIconElement = document.getElementById("current_icon");
+var currentTempElement = document.getElementById("current_temp");
+var currentWeatherTextElement = document.getElementById("weather")
 
-request.onreadystatechange = function () {
+var weatherRequest = new XMLHttpRequest();
+var weatherAPIKey = "806dfebcbac5da18"
+var currentWeatherAPIRequestWU = "http://api.wunderground.com/api/" + weatherAPIKey + "/forecast/conditions/forecast10day/q/41.5749088,-85.8396612.json";
+weatherRequest.open("GET", currentWeatherAPIRequestWU, true);
+weatherRequest.send();
+
+weatherRequest.onreadystatechange = function () {
     if (this.readyState === 4 && this.status === 200) {
         var jsonObj = JSON.parse(this.responseText);
-        weatherElement.innerHTML = "weather: " + jsonObj.query.results.channel.item.condition.text;
-        weatherElement.innerHTML += "<br/>current temp: " + jsonObj.query.results.channel.item.condition.temp;
-        weatherElement.innerHTML += "<br/>day high: " + jsonObj.query.results.channel.item.forecast[0].high;
-        weatherElement.innerHTML += "<br/>day low: " + jsonObj.query.results.channel.item.forecast[0].low;
-        weatherElement.innerHTML += "<br/>day forecast: " + jsonObj.query.results.channel.item.forecast[0].text;
-        weatherIconElement.innerHTML = "<i class=\"wi wi-yahoo-" + jsonObj.query.results.channel.item.condition.code + "\"></i>";
+        weatherIconElement.className = "wi wi-wu-" + jsonObj.current_observation.icon;
+        currentTempElement.innerHTML = jsonObj.current_observation.temp_f + "&#176;";
+        var simpleForecastDay = jsonObj.forecast.simpleforecast.forecastday;
+        for (var i = 0; i < 5; i++)
+        {
+            var dayElement = document.getElementById("day-" + i.toString());
+            dayElement.innerText = simpleForecastDay[i].date.weekday_short;
+
+            var iconElement = document.getElementById("icon-" + i.toString());
+            iconElement.className = "wi wi-wu-" + simpleForecastDay[i].icon;
+
+            var highElement = document.getElementById("high-" + i.toString());
+            highElement.innerHTML = simpleForecastDay[i].high.fahrenheit + "&#176;";
+
+            var lowElement = document.getElementById("low-" + i.toString());
+            lowElement.innerHTML = simpleForecastDay[i].low.fahrenheit + "&#176;";
+        }
     }
 }
-
-var currentWeatherAPIRequest = "https://query.yahooapis.com/v1/public/yql?q=select * from weather.forecast where woeid = 12777784&format=json"
-request.open("GET", currentWeatherAPIRequest, true);
-request.send();
 
 
 document.addEventListener('DOMContentLoaded', function () {

@@ -1,23 +1,33 @@
 ﻿<html>
 <head>
-   
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/css/bootstrap.min.css">
+
+    <!-- Latest compiled JavaScript -->
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/js/bootstrap.min.js"></script>
     <link rel="stylesheet" href="css/default.css" />
     <link rel="stylesheet" href="css/weather-icons.css" />
     <meta charset='utf-8' />
 </head>
 <body>
     <p id="datetime"></p>
-    <p id="weather"></p>
-    <div id="weather_icon"><i class="wi wi-night-sleet"></i></div>
-    <i class="wi wi-cloudy"></i>
-    <div id="footer"><p id="compliment"></p></div>
+
     <pre id="content"></pre>
+    <div id="weather_container">
+        <i id="current_icon"></i>
+        <div id="current_temp"></div>
+        <div id="5-day-forecast">
+            <div class="row"><div id="day-0"></div><i id="icon-0"></i>&nbsp;&nbsp;<i class="wi wi-direction-up"></i><div id="high-0"></div>&nbsp;&nbsp;<i class="wi wi-direction-down"></i><div id="low-0"></div><br /></div>
+            <div class="row"><div id="day-1"></div><i id="icon-1"></i>&nbsp;&nbsp;<i class="wi wi-direction-up"></i><div id="high-1"></div>&nbsp;&nbsp;<i class="wi wi-direction-down"></i><div id="low-1"></div><br /></div>
+            <div class="row"><div id="day-2"></div><i id="icon-2"></i>&nbsp;&nbsp;<i class="wi wi-direction-up"></i><div id="high-2"></div>&nbsp;&nbsp;<i class="wi wi-direction-down"></i><div id="low-2"></div><br /></div>
+            <div class="row"><div id="day-3"></div><i id="icon-3"></i>&nbsp;&nbsp;<i class="wi wi-direction-up"></i><div id="high-3"></div>&nbsp;&nbsp;<i class="wi wi-direction-down"></i><div id="low-3"></div><br /></div>
+            <div class="row"><div id="day-4"></div><i id="icon-4"></i>&nbsp;&nbsp;<i class="wi wi-direction-up"></i><div id="high-4"></div>&nbsp;&nbsp;<i class="wi wi-direction-down"></i><div id="low-4"></div><br /></div>
+        </div>
+    </div>
+    <div id="footer"><p id="compliment"></p></div>
 
     <script src="js/moment.js"></script>
     <script src="js/main.js"></script>
-    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.3/umd/popper.min.js" integrity="sha384-vFJXuSJphROIrBnz7yo7oB41mKfc8JzQZiCq4NCceLEaO4IHwicKwpJf9c9IpFgh" crossorigin="anonymous"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/js/bootstrap.min.js" integrity="sha384-alpBpkh1PFOepccYVYDB4do5UnbKysX5WZXm3XxPqe5iKTfUKjNkCk9SaVuEZflJ" crossorigin="anonymous"></script>
+
     <script async defer src="https://apis.google.com/js/api.js"
             onload="this.onload=function(){};handleClientLoad()"
             onreadystatechange="if (this.readyState === 'complete') this.onload()">
