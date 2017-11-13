@@ -1,17 +1,4 @@
-﻿// Client ID and API key from the Developer Console
-var CLIENT_ID = '327785858957-8t0s1cfdo379juri6pgkba07uoaneqcb.apps.googleusercontent.com';
-
-// Array of API discovery doc URLs for APIs used by the quickstart
-var DISCOVERY_DOCS = ["https://www.googleapis.com/discovery/v1/apis/calendar/v3/rest"];
-
-// Authorization scopes required by the API; multiple scopes can be
-// included, separated by spaces.
-var SCOPES = "https://www.googleapis.com/auth/calendar.readonly";
-
-var authorizeButton = document.getElementById('authorize-button');
-var signoutButton = document.getElementById('signout-button');
-
-var complimentList = ["You look hawt today.", "Morning", "You look particularly stunning today."]
+﻿var complimentList = ["You look hawt today.", "Morning", "You look particularly stunning today."]
 var complimentElement = document.getElementById('compliment');
 complimentElement.textContent = complimentList[1];
 
@@ -23,7 +10,7 @@ var updateTime = function () {
     datetimeElement.innerHTML = date.format('dddd, MMMM Do YYYY, h:mm:ss a');
 }
 
-var weatherIconElement = document.getElementById("current_icon");
+var currentWeatherIconElement = document.getElementById("current_icon");
 var currentTempElement = document.getElementById("current_temp");
 var currentWeatherTextElement = document.getElementById("weather")
 
@@ -36,13 +23,56 @@ weatherRequest.send();
 weatherRequest.onreadystatechange = function () {
     if (this.readyState === 4 && this.status === 200) {
         var jsonObj = JSON.parse(this.responseText);
-        weatherIconElement.className = "wi wi-wu-" + jsonObj.current_observation.icon;
+        currentWeatherIconElement.className = "wi wi-wu-" + jsonObj.current_observation.icon;
         currentTempElement.innerHTML = jsonObj.current_observation.temp_f + "&#176;";
         var simpleForecastDay = jsonObj.forecast.simpleforecast.forecastday;
         for (var i = 0; i < 5; i++)
         {
-            var forecastRowElement = document.getElementById("forecast-row-" + i.toString());
-            forecastRowElement.innerHTML = "<i class=\"wi wi-wu-" + simpleForecastDay[i].icon + "\"></i>&nbsp;&nbsp;" + "<i class=\"wi wi-direction-up\"></i>&nbsp;&nbsp" + simpleForecastDay[i].high.fahrenheit + "&#176;&nbsp;&nbsp;" + "<i class=\"wi wi-direction-down\"></i>&nbsp;&nbsp;" + simpleForecastDay[i].low.fahrenheit + "&#176;";
+            var rowIncrement = 30;
+            var positionFromTop = (70 + rowIncrement * i).toString();
+            var positionFromTopIcon = (75 + rowIncrement * i).toString();
+            var positionFromLeftIncrement = 45;
+
+
+            var dayElement = document.getElementById("day-" + i.toString());
+            dayElement.innerText = simpleForecastDay[i].date.weekday_short;
+            dayElement.style.position = "absolute";
+            dayElement.style.top = positionFromTop + "px";
+            dayElement.style.left = (positionFromLeftIncrement * 0).toString() + "px";
+            dayElement.style.color = "white";
+
+            var weatherIconElement = document.getElementById("icon-" + i.toString());
+            weatherIconElement.className = "wi wi-wu-" + simpleForecastDay[i].icon;
+            weatherIconElement.style.position = "absolute";
+            weatherIconElement.style.top = positionFromTopIcon + "px";
+            weatherIconElement.style.left = (positionFromLeftIncrement * 1).toString() + "px";
+            weatherIconElement.style.color = "white";
+
+            var upIconElement = document.getElementById("dir-up-" + i.toString());
+            upIconElement.style.position = "absolute";
+            upIconElement.style.top = positionFromTopIcon + "px"
+            upIconElement.style.left = (positionFromLeftIncrement * 2).toString() + "px";
+            upIconElement.style.color = "white";
+
+            var highElement = document.getElementById("high-" + i.toString());
+            highElement.innerHTML = simpleForecastDay[i].high.fahrenheit + "&#176;";
+            highElement.style.position = "absolute";
+            highElement.style.top = positionFromTop + "px";
+            highElement.style.left = (positionFromLeftIncrement * 2.2).toString() + "px";
+            highElement.style.color = "white";
+
+            var downIconElement = document.getElementById("dir-down-" + i.toString());
+            downIconElement.style.position = "absolute";
+            downIconElement.style.top = positionFromTopIcon + "px";
+            downIconElement.style.left = (positionFromLeftIncrement * 3).toString() + "px";
+            downIconElement.style.color = "white";
+
+            var lowElement = document.getElementById("low-" + i.toString());
+            lowElement.innerHTML = simpleForecastDay[i].low.fahrenheit + "&#176;";
+            lowElement.style.position = "absolute";
+            lowElement.style.top = positionFromTop + "px";
+            lowElement.style.left = (positionFromLeftIncrement * 3.2).toString() + "px";
+            lowElement.style.color = "white";
         }
     }
 }
@@ -52,103 +82,3 @@ document.addEventListener('DOMContentLoaded', function () {
     updateTime();
     setInterval(updateTime, 1000);
 }, false);
-
-/**
- *  On load, called to load the auth2 library and API client library.
- */
-function handleClientLoad() {
-    gapi.load('client:auth2', initClient);
-}
-
-/**
- *  Initializes the API client library and sets up sign-in state
- *  listeners.
- */
-function initClient() {
-    gapi.client.init({
-        discoveryDocs: DISCOVERY_DOCS,
-        clientId: CLIENT_ID,
-        scope: SCOPES
-    }).then(function () {
-        // Listen for sign-in state changes.
-        gapi.auth2.getAuthInstance().isSignedIn.listen(updateSigninStatus);
-
-        // Handle the initial sign-in state.
-        updateSigninStatus(gapi.auth2.getAuthInstance().isSignedIn.get());
-        authorizeButton.onclick = handleAuthClick;
-        signoutButton.onclick = handleSignoutClick;
-    });
-}
-
-/**
- *  Called when the signed in status changes, to update the UI
- *  appropriately. After a sign-in, the API is called.
- */
-function updateSigninStatus(isSignedIn) {
-    if (isSignedIn) {
-        authorizeButton.style.display = 'none';
-        signoutButton.style.display = 'block';
-        listUpcomingEvents();
-    } else {
-        authorizeButton.style.display = 'block';
-        signoutButton.style.display = 'none';
-    }
-}
-
-/**
- *  Sign in the user upon button click.
- */
-function handleAuthClick(event) {
-    gapi.auth2.getAuthInstance().signIn();
-}
-
-/**
- *  Sign out the user upon button click.
- */
-function handleSignoutClick(event) {
-    gapi.auth2.getAuthInstance().signOut();
-}
-
-/**
- * Append a pre element to the body containing the given message
- * as its text node. Used to display the results of the API call.
- *
- * @param {string} message Text to be placed in pre element.
- */
-function appendPre(message) {
-    var pre = document.getElementById('content');
-    var textContent = document.createTextNode(message + '\n');
-    pre.appendChild(textContent);
-}
-
-/**
- * Print the summary and start datetime/date of the next ten events in
- * the authorized user's calendar. If no events are found an
- * appropriate message is printed.
- */
-function listUpcomingEvents() {
-    gapi.client.calendar.events.list({
-        'calendarId': 'primary',
-        'timeMin': (new Date()).toISOString(),
-        'showDeleted': false,
-        'singleEvents': true,
-        'maxResults': 10,
-        'orderBy': 'startTime'
-    }).then(function (response) {
-        var events = response.result.items;
-        appendPre('Upcoming events:');
-
-        if (events.length > 0) {
-            for (i = 0; i < events.length; i++) {
-                var event = events[i];
-                var when = event.start.dateTime;
-                if (!when) {
-                    when = event.start.date;
-                }
-                appendPre(event.summary + ' (' + when + ')')
-            }
-        } else {
-            appendPre('No upcoming events found.');
-        }
-    });
-}
