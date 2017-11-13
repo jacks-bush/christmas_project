@@ -41,17 +41,8 @@ weatherRequest.onreadystatechange = function () {
         var simpleForecastDay = jsonObj.forecast.simpleforecast.forecastday;
         for (var i = 0; i < 5; i++)
         {
-            var dayElement = document.getElementById("day-" + i.toString());
-            dayElement.innerText = simpleForecastDay[i].date.weekday_short;
-
-            var iconElement = document.getElementById("icon-" + i.toString());
-            iconElement.className = "wi wi-wu-" + simpleForecastDay[i].icon;
-
-            var highElement = document.getElementById("high-" + i.toString());
-            highElement.innerHTML = simpleForecastDay[i].high.fahrenheit + "&#176;";
-
-            var lowElement = document.getElementById("low-" + i.toString());
-            lowElement.innerHTML = simpleForecastDay[i].low.fahrenheit + "&#176;";
+            var forecastRowElement = document.getElementById("forecast-row-" + i.toString());
+            forecastRowElement.innerHTML = "<i class=\"wi wi-wu-" + simpleForecastDay[i].icon + "\"></i>&nbsp;&nbsp;" + "<i class=\"wi wi-direction-up\"></i>&nbsp;&nbsp" + simpleForecastDay[i].high.fahrenheit + "&#176;&nbsp;&nbsp;" + "<i class=\"wi wi-direction-down\"></i>&nbsp;&nbsp;" + simpleForecastDay[i].low.fahrenheit + "&#176;";
         }
     }
 }
