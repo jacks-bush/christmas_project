@@ -31,47 +31,55 @@ weatherRequest.onreadystatechange = function () {
             var rowIncrement = 30;
             var positionFromTop = (70 + rowIncrement * i).toString();
             var positionFromTopIcon = (75 + rowIncrement * i).toString();
-            var positionFromLeftIncrement = 45;
-
+            var incrementFromDayToWeatherIcon = 50;
+            var incrementFromWeatherIconToUpIcon = 55;
+            var incrementFromUpIconToHigh = 13;
+            var incrementFromHighToDownIcon = 55;
+            var incrementFromDownIconToLow = 13;
+            var distanceFromLeft = 0;
 
             var dayElement = document.getElementById("day-" + i.toString());
             dayElement.innerText = simpleForecastDay[i].date.weekday_short;
             dayElement.style.position = "absolute";
             dayElement.style.top = positionFromTop + "px";
-            dayElement.style.left = (positionFromLeftIncrement * 0).toString() + "px";
-            dayElement.style.color = "white";
+            dayElement.style.left = "0px";
+            dayElement.style.color = "#808080";
 
             var weatherIconElement = document.getElementById("icon-" + i.toString());
             weatherIconElement.className = "wi wi-wu-" + simpleForecastDay[i].icon;
             weatherIconElement.style.position = "absolute";
             weatherIconElement.style.top = positionFromTopIcon + "px";
-            weatherIconElement.style.left = (positionFromLeftIncrement * 1).toString() + "px";
-            weatherIconElement.style.color = "white";
+            weatherIconElement.style.left = incrementFromDayToWeatherIcon.toString() + "px";
+            weatherIconElement.style.color = "#D3D3D3";
+            distanceFromLeft += incrementFromDayToWeatherIcon;
 
             var upIconElement = document.getElementById("dir-up-" + i.toString());
             upIconElement.style.position = "absolute";
             upIconElement.style.top = positionFromTopIcon + "px"
-            upIconElement.style.left = (positionFromLeftIncrement * 2).toString() + "px";
-            upIconElement.style.color = "white";
-
+            upIconElement.style.left = (distanceFromLeft + incrementFromWeatherIconToUpIcon).toString() + "px";
+            upIconElement.style.color = "#D3D3D3";
+            distanceFromLeft += incrementFromWeatherIconToUpIcon;
+            
             var highElement = document.getElementById("high-" + i.toString());
             highElement.innerHTML = simpleForecastDay[i].high.fahrenheit + "&#176;";
             highElement.style.position = "absolute";
             highElement.style.top = positionFromTop + "px";
-            highElement.style.left = (positionFromLeftIncrement * 2.2).toString() + "px";
+            highElement.style.left = (distanceFromLeft + incrementFromUpIconToHigh).toString() + "px";
             highElement.style.color = "white";
+            distanceFromLeft += incrementFromUpIconToHigh;
 
             var downIconElement = document.getElementById("dir-down-" + i.toString());
             downIconElement.style.position = "absolute";
             downIconElement.style.top = positionFromTopIcon + "px";
-            downIconElement.style.left = (positionFromLeftIncrement * 3).toString() + "px";
-            downIconElement.style.color = "white";
+            downIconElement.style.left = (distanceFromLeft + incrementFromHighToDownIcon).toString() + "px";
+            downIconElement.style.color = "#D3D3D3";
+            distanceFromLeft += incrementFromHighToDownIcon; 
 
             var lowElement = document.getElementById("low-" + i.toString());
             lowElement.innerHTML = simpleForecastDay[i].low.fahrenheit + "&#176;";
             lowElement.style.position = "absolute";
             lowElement.style.top = positionFromTop + "px";
-            lowElement.style.left = (positionFromLeftIncrement * 3.2).toString() + "px";
+            lowElement.style.left = (distanceFromLeft + incrementFromDownIconToLow).toString() + "px";
             lowElement.style.color = "white";
         }
     }
