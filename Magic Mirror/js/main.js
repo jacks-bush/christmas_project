@@ -7,12 +7,11 @@ var date = null;
 
 var updateTime = function () {
     date = moment(new Date());
-    datetimeElement.innerHTML = date.format('dddd, MMMM Do YYYY, h:mm:ss a');
+    datetimeElement.innerHTML = date.format('h:mm a');
 }
 
 var currentWeatherIconElement = document.getElementById("current_icon");
 var currentTempElement = document.getElementById("current_temp");
-var currentWeatherTextElement = document.getElementById("weather")
 
 var weatherRequest = new XMLHttpRequest();
 var weatherAPIKey = "806dfebcbac5da18"
@@ -57,7 +56,7 @@ weatherRequest.onreadystatechange = function () {
             upIconElement.style.position = "absolute";
             upIconElement.style.top = positionFromTopIcon + "px"
             upIconElement.style.left = (distanceFromLeft + incrementFromWeatherIconToUpIcon).toString() + "px";
-            upIconElement.style.color = "#D3D3D3";
+            upIconElement.style.color = "#808080";
             distanceFromLeft += incrementFromWeatherIconToUpIcon;
             
             var highElement = document.getElementById("high-" + i.toString());
@@ -72,7 +71,7 @@ weatherRequest.onreadystatechange = function () {
             downIconElement.style.position = "absolute";
             downIconElement.style.top = positionFromTopIcon + "px";
             downIconElement.style.left = (distanceFromLeft + incrementFromHighToDownIcon).toString() + "px";
-            downIconElement.style.color = "#D3D3D3";
+            downIconElement.style.color = "#808080";
             distanceFromLeft += incrementFromHighToDownIcon; 
 
             var lowElement = document.getElementById("low-" + i.toString());

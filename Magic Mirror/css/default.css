@@ -22,27 +22,32 @@
 #datetime {
     text-align: center;
     color: white;
-    font-size: 48px;
+    font-size: 100px;
+    font-family: "HelveticaNeueLTStd-UltLt";
+    position: absolute;
+    top: 75px;
+    left: 75px;
 }
 
 #current_icon {
     font-family: 'weathericons';
-    font-size: 72px;
+    font-size: 120px;
     position: absolute;
     top: 20px;
     left: 0px;
 }
 
 #current_temp {
+    font-family: "HelveticaNeueLTStd-UltLt";
     position: absolute;
     top: 0px;
-    left: 100px;
-    font-size: 72px;
+    left: 250px;
+    font-size: 100px;
 }
 
-#weather_container {
+#current_weather_container {
     top: 100px;
-    right: 300px;
+    right: 550px;
     position: absolute;
     color: white;
 }
@@ -51,15 +56,22 @@
     font-size: 18px;
     color: white;
     position: absolute;
-    top: 45px;
-    left: 0px;
-    width: 100%
+    top: 200px;
+    right: 300px;
 }
 
 @font-face {
     font-family: 'HelveticaNeueLTStd-Lt';
-    src: url('fonts/Helvetica Neue LT Std/HelveticaNeueLTStd-Lt.eot');
-    src: url('fonts/Helvetica Neue LT Std/HelveticaNeueLTStd-Lt.woff2') format('woff2'), url('fonts/Helvetica Neue LT Std/HelveticaNeueLTStd-Lt.woff') format('woff'), url('fonts/Helvetica Neue LT Std/HelveticaNeueLTStd-Lt.ttf') format('truetype'), url('fonts/Helvetica Neue LT Std/HelveticaNeueLTStd-Lt.svg#HelveticaNeueLTStd-Lt') format('svg'), url('fonts/Helvetica Neue LT Std/HelveticaNeueLTStd-Lt.eot?#iefix') format('embedded-opentype');
+    src: url('fonts/Helvetica Neue LT Std/HelveticaNeueLTStd-Lt.otf');
+    /*src: url('fonts/Helvetica Neue LT Std/HelveticaNeueLTStd-Lt.eot');*/
+    /*src: url('fonts/Helvetica Neue LT Std/HelveticaNeueLTStd-Lt.woff2') format('woff2'), url('fonts/Helvetica Neue LT Std/HelveticaNeueLTStd-Lt.woff') format('woff'), url('fonts/Helvetica Neue LT Std/HelveticaNeueLTStd-Lt.ttf') format('truetype'), url('fonts/Helvetica Neue LT Std/HelveticaNeueLTStd-Lt.svg#HelveticaNeueLTStd-Lt') format('svg'), url('fonts/Helvetica Neue LT Std/HelveticaNeueLTStd-Lt.eot?#iefix') format('embedded-opentype');*/
+    font-weight: normal;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'HelveticaNeueLTStd-UltLt';
+    src: url('fonts/Helvetica Neue LT Std/HelveticaNeueLTStd-UltLt.otf');
     font-weight: normal;
     font-style: normal;
 }
