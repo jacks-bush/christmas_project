@@ -1,4 +1,4 @@
-﻿var complimentList = ["You look hawt today.", "Morning", "You look particularly stunning today."]
+﻿var complimentList = ["You look hawt today.", "Hello", "You look particularly stunning today."]
 var complimentElement = document.getElementById('compliment');
 complimentElement.textContent = complimentList[1];
 
@@ -22,12 +22,17 @@ weatherRequest.send();
 weatherRequest.onreadystatechange = function () {
     if (this.readyState === 4 && this.status === 200) {
         var jsonObj = JSON.parse(this.responseText);
-        currentWeatherIconElement.className = "wi wi-wu-" + jsonObj.current_observation.icon;
+        var dateNow = new Date();
+        var sunrise = new Date(dateNow.getFullYear(), dateNow.getMonth(), dateNow.getDate(), parseInt(jsonObj.sun_phase.sunrise.hour), parseInt(jsonObj.sun_phase.sunrise.minute)) 
+        var sunset = new Date(dateNow.getFullYear(), dateNow.getMonth(), dateNow.getDate(), parseInt(jsonObj.sun_phase.sunset.hour), parseInt(jsonObj.sun_phase.sunset.minute))
+        if (sunrise < dateNow && dateNow < sunset) { currentWeatherIconElement.className = weatherDayIcons[jsonObj.current_observation.icon]; }
+        else { currentWeatherIconElement.className = weatherNightIcons[jsonObj.current_observation.icon]; }
+
         currentTempElement.innerHTML = jsonObj.current_observation.temp_f + "&#176;";
         var simpleForecastDay = jsonObj.forecast.simpleforecast.forecastday;
         for (var i = 0; i < 5; i++)
         {
-            var rowIncrement = 30;
+            var rowIncrement = 35;
             var positionFromTop = (70 + rowIncrement * i).toString();
             var positionFromTopIcon = (75 + rowIncrement * i).toString();
             var incrementFromDayToWeatherIcon = 50;
@@ -45,7 +50,7 @@ weatherRequest.onreadystatechange = function () {
             dayElement.style.color = "#808080";
 
             var weatherIconElement = document.getElementById("icon-" + i.toString());
-            weatherIconElement.className = "wi wi-wu-" + simpleForecastDay[i].icon;
+            weatherIconElement.className = weatherDayIcons[simpleForecastDay[i].icon];
             weatherIconElement.style.position = "absolute";
             weatherIconElement.style.top = positionFromTopIcon + "px";
             weatherIconElement.style.left = incrementFromDayToWeatherIcon.toString() + "px";
@@ -130,10 +135,4 @@ weatherDayIcons["snow"] = "wi wi-snow";
 weatherDayIcons["sunny"] = "wi wi-day-sunny";
 weatherDayIcons["tstorms"] = "wi wi-thunderstorm";
 weatherDayIcons["unknown"] = "wi wi-day-sunny";
-
-
-
-
-
-
 
