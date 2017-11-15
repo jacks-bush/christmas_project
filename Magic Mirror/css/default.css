@@ -11,6 +11,7 @@
     color: white;
     text-align: center;
     font-size: 48px;
+    font-family: "HelveticaNeueLTStd-UltLt";
 }
 
 #footer {
@@ -25,39 +26,41 @@
     font-size: 100px;
     font-family: "HelveticaNeueLTStd-UltLt";
     position: absolute;
-    top: 75px;
-    left: 75px;
+    left: 0;
+    right: 0;
+    margin: auto;
+    bottom: 150px;
 }
 
 #current_icon {
     font-family: 'weathericons';
     font-size: 120px;
     position: absolute;
-    top: 20px;
-    left: 0px;
+    top: 15px;
+    left: 20px;
 }
 
 #current_temp {
     font-family: "HelveticaNeueLTStd-UltLt";
     position: absolute;
     top: 0px;
-    left: 250px;
+    left: 225px;
     font-size: 100px;
 }
 
 #current_weather_container {
-    top: 100px;
-    right: 550px;
+    top: 50px;
+    right: 500px;
     position: absolute;
     color: white;
 }
 
 #five-day-forecast {
-    font-size: 18px;
+    font-size: 20px;
     color: white;
     position: absolute;
-    top: 200px;
-    right: 300px;
+    top: 150px;
+    right: 250px;
 }
 
 @font-face {

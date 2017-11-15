@@ -15,7 +15,7 @@ var currentTempElement = document.getElementById("current_temp");
 
 var weatherRequest = new XMLHttpRequest();
 var weatherAPIKey = "806dfebcbac5da18"
-var currentWeatherAPIRequestWU = "http://api.wunderground.com/api/" + weatherAPIKey + "/forecast/conditions/forecast10day/q/41.5749088,-85.8396612.json";
+var currentWeatherAPIRequestWU = "http://api.wunderground.com/api/" + weatherAPIKey + "/forecast/conditions/forecast10day/astronomy/q/41.5749088,-85.8396612.json";
 weatherRequest.open("GET", currentWeatherAPIRequestWU, true);
 weatherRequest.send();
 
@@ -89,3 +89,51 @@ document.addEventListener('DOMContentLoaded', function () {
     updateTime();
     setInterval(updateTime, 1000);
 }, false);
+
+
+
+var weatherNightIcons = {};
+weatherNightIcons["chanceflurries"] = "wi wi-night-alt-snow-wind";
+weatherNightIcons["chancerain"] = "wi wi-night-alt-showers";
+weatherNightIcons["chancesleet"] = "wi wi-night-alt-sleet";
+weatherNightIcons["chancesnow"] = "wi wi-night-alt-snow";
+weatherNightIcons["chancetstorms"] = "wi wi-night-alt-thunderstorm";
+weatherNightIcons["clear"] = "wi wi-night-clear";
+weatherNightIcons["cloudy"] = "wi wi-night-alt-cloudy";
+weatherNightIcons["flurries"] = "wi wi-night-alt-snow-wind";
+weatherNightIcons["fog"] = "wi wi-night-fog";
+weatherNightIcons["mostlycloudy"] = "wi wi-night-alt-cloudy";
+weatherNightIcons["partlycloudy"] = "wi wi-night-alt-cloudy";
+weatherNightIcons["rain"] = "wi wi-night-alt-rain";
+weatherNightIcons["snow"] = "wi wi-night-alt-snow";
+weatherNightIcons["tstorms"] = "wi wi-night-alt-thunderstorm";
+weatherNightIcons["unknown"] = "wi wi-night-clear";
+
+
+var weatherDayIcons = {};
+weatherDayIcons["chanceflurries"] = "wi wi-snow-wind";
+weatherDayIcons["chancerain"] = "wi wi-showers";
+weatherDayIcons["chancesleet"] = "wi wi-sleet";
+weatherDayIcons["chancesnow"] = "wi wi-snow";
+weatherDayIcons["chancetstorms"] = "wi wi-thunderstorm";
+weatherDayIcons["clear"] = "wi wi-day-sunny";
+weatherDayIcons["cloudy"] = "wi wi-cloudy";
+weatherDayIcons["flurries"] = "wi wi-snow-wind";
+weatherDayIcons["fog"] = "wi wi-fog";
+weatherDayIcons["hazy"] = "wi wi-day-haze";
+weatherDayIcons["mostlycloudy"] = "wi wi-cloudy";
+weatherDayIcons["mostlysunny"] = "wi wi-day-sunny";
+weatherDayIcons["partlycloudy"] = "wi wi-day-cloudy";
+weatherDayIcons["partlysunny"] = "wi wi-day-sunny-overcast";
+weatherDayIcons["rain"] = "wi wi-rain";
+weatherDayIcons["snow"] = "wi wi-snow";
+weatherDayIcons["sunny"] = "wi wi-day-sunny";
+weatherDayIcons["tstorms"] = "wi wi-thunderstorm";
+weatherDayIcons["unknown"] = "wi wi-day-sunny";
+
+
+
+
+
+
+
