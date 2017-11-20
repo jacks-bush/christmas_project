@@ -1,14 +1,44 @@
-﻿var complimentList = ["You look hawt today.", "Hello", "You look particularly stunning today."]
+﻿var weatherNightIcons = {};
+weatherNightIcons["chanceflurries"] = "wi wi-night-alt-snow-wind";
+weatherNightIcons["chancerain"] = "wi wi-night-alt-showers";
+weatherNightIcons["chancesleet"] = "wi wi-night-alt-sleet";
+weatherNightIcons["chancesnow"] = "wi wi-night-alt-snow";
+weatherNightIcons["chancetstorms"] = "wi wi-night-alt-thunderstorm";
+weatherNightIcons["clear"] = "wi wi-night-clear";
+weatherNightIcons["cloudy"] = "wi wi-night-alt-cloudy";
+weatherNightIcons["flurries"] = "wi wi-night-alt-snow-wind";
+weatherNightIcons["fog"] = "wi wi-night-fog";
+weatherNightIcons["mostlycloudy"] = "wi wi-night-alt-cloudy";
+weatherNightIcons["partlycloudy"] = "wi wi-night-alt-cloudy";
+weatherNightIcons["rain"] = "wi wi-night-alt-rain";
+weatherNightIcons["snow"] = "wi wi-night-alt-snow";
+weatherNightIcons["tstorms"] = "wi wi-night-alt-thunderstorm";
+weatherNightIcons["unknown"] = "wi wi-night-clear";
+
+
+var weatherDayIcons = {};
+weatherDayIcons["chanceflurries"] = "wi wi-snow-wind";
+weatherDayIcons["chancerain"] = "wi wi-showers";
+weatherDayIcons["chancesleet"] = "wi wi-sleet";
+weatherDayIcons["chancesnow"] = "wi wi-snow";
+weatherDayIcons["chancetstorms"] = "wi wi-thunderstorm";
+weatherDayIcons["clear"] = "wi wi-day-sunny";
+weatherDayIcons["cloudy"] = "wi wi-cloudy";
+weatherDayIcons["flurries"] = "wi wi-snow-wind";
+weatherDayIcons["fog"] = "wi wi-fog";
+weatherDayIcons["hazy"] = "wi wi-day-haze";
+weatherDayIcons["mostlycloudy"] = "wi wi-cloudy";
+weatherDayIcons["mostlysunny"] = "wi wi-day-sunny";
+weatherDayIcons["partlycloudy"] = "wi wi-day-cloudy";
+weatherDayIcons["partlysunny"] = "wi wi-day-sunny-overcast";
+weatherDayIcons["rain"] = "wi wi-rain";
+weatherDayIcons["snow"] = "wi wi-snow";
+weatherDayIcons["sunny"] = "wi wi-day-sunny";
+weatherDayIcons["tstorms"] = "wi wi-thunderstorm";
+weatherDayIcons["unknown"] = "wi wi-day-sunny";
+var complimentList = ["You look hawt today.", "Hello", "You look particularly stunning today."]
 var complimentElement = document.getElementById('compliment');
 complimentElement.textContent = complimentList[1];
-
-var datetimeElement = document.getElementById('datetime');
-var date = null;
-
-var updateTime = function () {
-    date = moment(new Date());
-    datetimeElement.innerHTML = date.format('h:mm a');
-}
 
 var currentWeatherIconElement = document.getElementById("current_icon");
 var currentTempElement = document.getElementById("current_temp");
@@ -89,50 +119,62 @@ weatherRequest.onreadystatechange = function () {
     }
 }
 
+var datetimeElement = document.getElementById('datetime');
+var date = null;
+
+var updateTime = function () {
+    date = moment(new Date());
+    datetimeElement.innerHTML = date.format('h:mm a');
+}
 
 document.addEventListener('DOMContentLoaded', function () {
     updateTime();
     setInterval(updateTime, 1000);
 }, false);
 
+var request = new XMLHttpRequest();
 
+request.onload = function () {
 
-var weatherNightIcons = {};
-weatherNightIcons["chanceflurries"] = "wi wi-night-alt-snow-wind";
-weatherNightIcons["chancerain"] = "wi wi-night-alt-showers";
-weatherNightIcons["chancesleet"] = "wi wi-night-alt-sleet";
-weatherNightIcons["chancesnow"] = "wi wi-night-alt-snow";
-weatherNightIcons["chancetstorms"] = "wi wi-night-alt-thunderstorm";
-weatherNightIcons["clear"] = "wi wi-night-clear";
-weatherNightIcons["cloudy"] = "wi wi-night-alt-cloudy";
-weatherNightIcons["flurries"] = "wi wi-night-alt-snow-wind";
-weatherNightIcons["fog"] = "wi wi-night-fog";
-weatherNightIcons["mostlycloudy"] = "wi wi-night-alt-cloudy";
-weatherNightIcons["partlycloudy"] = "wi wi-night-alt-cloudy";
-weatherNightIcons["rain"] = "wi wi-night-alt-rain";
-weatherNightIcons["snow"] = "wi wi-night-alt-snow";
-weatherNightIcons["tstorms"] = "wi wi-night-alt-thunderstorm";
-weatherNightIcons["unknown"] = "wi wi-night-clear";
+    // Because of javascript's fabulous closure concept, the XMLHttpRequest "request"
+    // object declared above is available in this function even though this function
+    // executes long after the request is sent and long after this function is
+    // instantiated. This fact is CRUCIAL to the workings of XHR in ordinary
+    // applications.
 
+    // You can get all kinds of information about the HTTP response.
+    var status = request.status; // HTTP response status, e.g., 200 for "200 OK"
+    var data = JSON.parse(request.responseText); // Returned data, e.g., an HTML document.
+    var accessToken = data.access_token;
+    var expiresIn = data.expires_in;
 
-var weatherDayIcons = {};
-weatherDayIcons["chanceflurries"] = "wi wi-snow-wind";
-weatherDayIcons["chancerain"] = "wi wi-showers";
-weatherDayIcons["chancesleet"] = "wi wi-sleet";
-weatherDayIcons["chancesnow"] = "wi wi-snow";
-weatherDayIcons["chancetstorms"] = "wi wi-thunderstorm";
-weatherDayIcons["clear"] = "wi wi-day-sunny";
-weatherDayIcons["cloudy"] = "wi wi-cloudy";
-weatherDayIcons["flurries"] = "wi wi-snow-wind";
-weatherDayIcons["fog"] = "wi wi-fog";
-weatherDayIcons["hazy"] = "wi wi-day-haze";
-weatherDayIcons["mostlycloudy"] = "wi wi-cloudy";
-weatherDayIcons["mostlysunny"] = "wi wi-day-sunny";
-weatherDayIcons["partlycloudy"] = "wi wi-day-cloudy";
-weatherDayIcons["partlysunny"] = "wi wi-day-sunny-overcast";
-weatherDayIcons["rain"] = "wi wi-rain";
-weatherDayIcons["snow"] = "wi wi-snow";
-weatherDayIcons["sunny"] = "wi wi-day-sunny";
-weatherDayIcons["tstorms"] = "wi wi-thunderstorm";
-weatherDayIcons["unknown"] = "wi wi-day-sunny";
+    var requestCalendars = new XMLHttpRequest();
+    request.open("GET", "https://www.googleapis.com/calendar/v3/users/me/calendarList/", true);
+
+    request.setRequestHeader("Authorization", "Bearer " + accessToken);
+    request.setRequestHeader("HOST", "www.googleapis.com")
+    request.onload = function ()
+    {
+        var status = request.status;
+        var data = JSON.parse(request.responseText); 
+        var calendarIdList = [];
+        for (var i = 0; i < data.items.length; i++)
+        {
+            calendarIdList.push(data.items[i].id);
+        }
+    }
+
+    // Actually sends the request to the server.
+    request.send(null);
+}
+
+request.open("POST", "https://www.googleapis.com/oauth2/v4/token", true);
+
+request.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+request.setRequestHeader("HOST", "www.googleapis.com")
+
+var postData = "client_id=" + clientId + "&client_secret=" + clientSecret + "&refresh_token=" + refreshToken + "&grant_type=refresh_token";
+// Actually sends the request to the server.
+request.send(postData);
+
 
