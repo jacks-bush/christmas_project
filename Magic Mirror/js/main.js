@@ -132,40 +132,65 @@ document.addEventListener('DOMContentLoaded', function () {
     setInterval(updateTime, 1000);
 }, false);
 
+function ISODateString(d)
+{
+    function pad(n) { return n < 10 ? '0' + n : n }
+    return d.utc().year() + '-'
+        + pad(d.utc().month() + 1) + '-'
+        + pad(d.utc().date()) + 'T'
+        + pad(d.utc().hours()) + ':'
+        + pad(d.utc().minutes()) + ':'
+        + pad(d.utc().seconds()) + '.000Z'
+}
+
+function googleCalendarEvent(name, startTime, endTime) {
+    this.name = name;
+    this.startTime = startTime;
+    this.endTime = endTime;
+}
+
 var request = new XMLHttpRequest();
 
 request.onload = function () {
 
-    // Because of javascript's fabulous closure concept, the XMLHttpRequest "request"
-    // object declared above is available in this function even though this function
-    // executes long after the request is sent and long after this function is
-    // instantiated. This fact is CRUCIAL to the workings of XHR in ordinary
-    // applications.
-
-    // You can get all kinds of information about the HTTP response.
     var status = request.status; // HTTP response status, e.g., 200 for "200 OK"
     var data = JSON.parse(request.responseText); // Returned data, e.g., an HTML document.
     var accessToken = data.access_token;
     var expiresIn = data.expires_in;
 
-    var requestCalendars = new XMLHttpRequest();
-    request.open("GET", "https://www.googleapis.com/calendar/v3/users/me/calendarList/", true);
+    var requestCalendarList = new XMLHttpRequest();
+    requestCalendarList.open("GET", "https://www.googleapis.com/calendar/v3/users/me/calendarList/", true);
 
-    request.setRequestHeader("Authorization", "Bearer " + accessToken);
-    request.setRequestHeader("HOST", "www.googleapis.com")
-    request.onload = function ()
+    requestCalendarList.setRequestHeader("Authorization", "Bearer " + accessToken);
+    requestCalendarList.setRequestHeader("HOST", "www.googleapis.com")
+    requestCalendarList.onload = function ()
     {
-        var status = request.status;
-        var data = JSON.parse(request.responseText); 
+        var status = requestCalendarList.status;
+        var data = JSON.parse(requestCalendarList.responseText); 
         var calendarIdList = [];
+        var eventsList = [];
+        var count = 0;
         for (var i = 0; i < data.items.length; i++)
         {
             calendarIdList.push(data.items[i].id);
+            var requestEventList = new XMLHttpRequest();
+            requestEventList.open("GET", "https://www.googleapis.com/calendar/v3/calendars/" + calendarIdList[i] + "/events", false);
+
+            requestEventList.setRequestHeader("Authorization", "Bearer " + accessToken);
+            requestEventList.setRequestHeader("HOST", "www.googleapis.com")
+            requestEventList.onload = function () {
+                var status = requestEventList.status;
+                var data = JSON.parse(requestEventList.responseText);
+               
+                count += 1;
+            }
+            var postData = "timeMax=" + ISODateString(moment().day(8)) + "&timeMin=" + ISODateString(moment().startOf('day'))
+            requestEventList.send(postData);
         }
     }
 
     // Actually sends the request to the server.
-    request.send(null);
+    requestCalendarList.send(null);
 }
 
 request.open("POST", "https://www.googleapis.com/oauth2/v4/token", true);
@@ -177,4 +202,5 @@ var postData = "client_id=" + clientId + "&client_secret=" + clientSecret + "&re
 // Actually sends the request to the server.
 request.send(postData);
 
-
+//"2017-11-27T18:55:06.000Z"
+//"2017-10-26T14:38:35.000Z"
