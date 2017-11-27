@@ -53,15 +53,14 @@ weatherRequest.onreadystatechange = function () {
     if (this.readyState === 4 && this.status === 200) {
         var jsonObj = JSON.parse(this.responseText);
         var dateNow = new Date();
-        var sunrise = new Date(dateNow.getFullYear(), dateNow.getMonth(), dateNow.getDate(), parseInt(jsonObj.sun_phase.sunrise.hour), parseInt(jsonObj.sun_phase.sunrise.minute)) 
+        var sunrise = new Date(dateNow.getFullYear(), dateNow.getMonth(), dateNow.getDate(), parseInt(jsonObj.sun_phase.sunrise.hour), parseInt(jsonObj.sun_phase.sunrise.minute))
         var sunset = new Date(dateNow.getFullYear(), dateNow.getMonth(), dateNow.getDate(), parseInt(jsonObj.sun_phase.sunset.hour), parseInt(jsonObj.sun_phase.sunset.minute))
         if (sunrise < dateNow && dateNow < sunset) { currentWeatherIconElement.className = weatherDayIcons[jsonObj.current_observation.icon]; }
         else { currentWeatherIconElement.className = weatherNightIcons[jsonObj.current_observation.icon]; }
 
         currentTempElement.innerHTML = jsonObj.current_observation.temp_f + "&#176;";
         var simpleForecastDay = jsonObj.forecast.simpleforecast.forecastday;
-        for (var i = 0; i < 5; i++)
-        {
+        for (var i = 0; i < 5; i++) {
             var rowIncrement = 35;
             var positionFromTop = (70 + rowIncrement * i).toString();
             var positionFromTopIcon = (75 + rowIncrement * i).toString();
@@ -93,7 +92,7 @@ weatherRequest.onreadystatechange = function () {
             upIconElement.style.left = (distanceFromLeft + incrementFromWeatherIconToUpIcon).toString() + "px";
             upIconElement.style.color = "#808080";
             distanceFromLeft += incrementFromWeatherIconToUpIcon;
-            
+
             var highElement = document.getElementById("high-" + i.toString());
             highElement.innerHTML = simpleForecastDay[i].high.fahrenheit + "&#176;";
             highElement.style.position = "absolute";
@@ -107,7 +106,7 @@ weatherRequest.onreadystatechange = function () {
             downIconElement.style.top = positionFromTopIcon + "px";
             downIconElement.style.left = (distanceFromLeft + incrementFromHighToDownIcon).toString() + "px";
             downIconElement.style.color = "#808080";
-            distanceFromLeft += incrementFromHighToDownIcon; 
+            distanceFromLeft += incrementFromHighToDownIcon;
 
             var lowElement = document.getElementById("low-" + i.toString());
             lowElement.innerHTML = simpleForecastDay[i].low.fahrenheit + "&#176;";
@@ -132,24 +131,49 @@ document.addEventListener('DOMContentLoaded', function () {
     setInterval(updateTime, 1000);
 }, false);
 
-function ISODateString(d)
-{
-    function pad(n) { return n < 10 ? '0' + n : n }
-    return d.utc().year() + '-'
-        + pad(d.utc().month() + 1) + '-'
-        + pad(d.utc().date()) + 'T'
-        + pad(d.utc().hours()) + ':'
-        + pad(d.utc().minutes()) + ':'
-        + pad(d.utc().seconds()) + '.000Z'
-}
-
 function googleCalendarEvent(name, startTime, endTime) {
     this.name = name;
     this.startTime = startTime;
     this.endTime = endTime;
+    this.getDisplayString = function () {
+        var googleCalDate;
+        var monthNames = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
+        var dayNames = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
+        if (this.startTime.hasOwnProperty('date')) {
+            googleCalDate = getDateObjectFromRFC3339String(startTime.date, false);
+            return dayNames[googleCalDate.getDay()] + " " + monthNames[googleCalDate.getMonth()] + " " + googleCalDate.getDate().toString() + " " + name;
+        }
+        else {
+            googleCalDate = getDateObjectFromRFC3339String(startTime.dateTime, true);
+            var hourDispStr;
+            if (googleCalDate.getHours() > 12) {
+                hourDispStr = (googleCalDate.getHours() % 12).toString() + "pm";
+            }
+            else {
+                hourDispStr = googleCalDate.getHours().toString() + "am";
+            }
+            return dayNames[googleCalDate.getDay()] + " " + monthNames[googleCalDate.getMonth()] + " " + googleCalDate.getDate().toString() + " " + name + " " + hourDispStr;
+        }
+    }
+}
+
+// 2017-12-01T11:00:00-05:00
+function getDateObjectFromRFC3339String(dateStr, isDateTime) {
+    var year = parseInt(dateStr.substring(0, 4));
+    var month = parseInt(dateStr.substring(5, 7));
+    var day = parseInt(dateStr.substring(8, 10));
+    if (isDateTime) {
+        var hour = parseInt(dateStr.substring(11, 13));
+        var minute = parseInt(dateStr.substring(14, 16));
+        return new Date(year, month, day, hour, minute);
+    }
+    else {
+        return new Date(year, month, day);
+    }
 }
 
 var request = new XMLHttpRequest();
+var googleCalendarContainerElement = document.getElementById("google-calendar-events");
 
 request.onload = function () {
 
@@ -157,21 +181,19 @@ request.onload = function () {
     var data = JSON.parse(request.responseText); // Returned data, e.g., an HTML document.
     var accessToken = data.access_token;
     var expiresIn = data.expires_in;
+    var eventsList = [];
 
     var requestCalendarList = new XMLHttpRequest();
     requestCalendarList.open("GET", "https://www.googleapis.com/calendar/v3/users/me/calendarList/", true);
 
     requestCalendarList.setRequestHeader("Authorization", "Bearer " + accessToken);
     requestCalendarList.setRequestHeader("HOST", "www.googleapis.com")
-    requestCalendarList.onload = function ()
-    {
+    requestCalendarList.onload = function () {
         var status = requestCalendarList.status;
-        var data = JSON.parse(requestCalendarList.responseText); 
+        var data = JSON.parse(requestCalendarList.responseText);
         var calendarIdList = [];
-        var eventsList = [];
         var count = 0;
-        for (var i = 0; i < data.items.length; i++)
-        {
+        for (var i = 0; i < data.items.length; i++) {
             calendarIdList.push(data.items[i].id);
             var requestEventList = new XMLHttpRequest();
             var dateMax = new Date();
@@ -196,7 +218,18 @@ request.onload = function () {
             }
             requestEventList.send(null);
         }
-        // now can display events!
+        for (var i = 0; i < eventsList.length; i++) {
+            var rowIncrement = 20;
+            var positionFromTop = rowIncrement * i;
+
+            var eventDiv = document.createElement("div");
+            eventDiv.style.position = "absolute";
+            eventDiv.style.top = positionFromTop.toString() + "px";
+            eventDiv.innerHTML = eventsList[i].getDisplayString();
+
+            googleCalendarContainerElement.appendChild(eventDiv);
+
+        }
     }
 
     // Actually sends the request to the server.
@@ -223,9 +256,6 @@ var Timestamp = {
             + ":" + this.pad(date.getMinutes(), 2)
             + ":" + this.pad(date.getSeconds(), 2)
             + "Z";
-            //+ (offset > 0 ? "-" : "+")
-            //+ this.pad(Math.floor(Math.abs(offset) / 60), 2)
-            //+ ":" + this.pad(Math.abs(offset) % 60, 2);
     },
     pad: function (amount, width) {
         var padding = "";

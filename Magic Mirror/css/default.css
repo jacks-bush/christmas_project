@@ -63,6 +63,16 @@
     right: 250px;
 }
 
+#google-calendar-events {
+    font-size: 16px;
+    color: white;
+    position: absolute;
+    top: 50px;
+    left: 50px;
+    width: 500px;
+    font-family: "HelveticaNeueLTStd-UltLt";
+}
+
 @font-face {
     font-family: 'HelveticaNeueLTStd-Lt';
     src: url('fonts/Helvetica Neue LT Std/HelveticaNeueLTStd-Lt.otf');
