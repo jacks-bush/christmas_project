@@ -184,7 +184,11 @@ request.onload = function () {
                
                 count += 1;
             }
-            var postData = "timeMax=" + ISODateString(moment().day(8)) + "&timeMin=" + ISODateString(moment().startOf('day'))
+            var dateMax = new Date();
+            var dateMin = new Date();
+            dateMin.setHours(0, 0, 0, 0);
+            dateMax.setHours(23, 59, 59);
+            var postData = "timeMax=" + Timestamp.start(addDays(dateMax, 8)) + "&timeMin=" + Timestamp.start(dateMin);
             requestEventList.send(postData);
         }
     }
@@ -202,5 +206,41 @@ var postData = "client_id=" + clientId + "&client_secret=" + clientSecret + "&re
 // Actually sends the request to the server.
 request.send(postData);
 
+var Timestamp = {
+    start: function (date) {
+        date = date ? date : new Date();
+        var offset = date.getTimezoneOffset();
+        return this.pad(date.getFullYear(), 4)
+            + "-" + this.pad(date.getMonth() + 1, 2)
+            + "-" + this.pad(date.getDate(), 2)
+            + "T" + this.pad(date.getHours(), 2)
+            + ":" + this.pad(date.getMinutes(), 2)
+            + ":" + this.pad(date.getSeconds(), 2)
+            + "Z";
+            //+ (offset > 0 ? "-" : "+")
+            //+ this.pad(Math.floor(Math.abs(offset) / 60), 2)
+            //+ ":" + this.pad(Math.abs(offset) % 60, 2);
+    },
+    pad: function (amount, width) {
+        var padding = "";
+        while (padding.length < width - 1 && amount < Math.pow(10, width - padding.length - 1))
+            padding += "0";
+        return padding + amount.toString();
+    }
+}
+
+function addDays(date, days) {
+    var result = new Date(date);
+    result.setDate(result.getDate() + days);
+    return result;
+}
+
 //"2017-11-27T18:55:06.000Z"
 //"2017-10-26T14:38:35.000Z"
+// 2017-12-04T23:59:59Z
+// 2011-06-03T10:00:00-07:00, 2011-06-03T10:00:00Z
+// 2017-12-04T20:45:20-05:00
+// timeMax=2017-12-04T21:00:31-05:00&timeMin=2017-11-26T00:00:00-05:00
+timeMin = '2012-10-25T00:00:00Z'
+timeMax = '2012-10-26T00:00:00Z' 
+//         2017-12-04T23:59:59Z
