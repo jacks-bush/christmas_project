@@ -174,23 +174,29 @@ request.onload = function () {
         {
             calendarIdList.push(data.items[i].id);
             var requestEventList = new XMLHttpRequest();
-            requestEventList.open("GET", "https://www.googleapis.com/calendar/v3/calendars/" + calendarIdList[i] + "/events", false);
+            var dateMax = new Date();
+            var dateMin = new Date();
+            dateMin.setHours(0, 0, 0, 0);
+            dateMax.setHours(23, 59, 59);
+            var eventPostData = "timeMax=" + Timestamp.start(addDays(dateMax, 7)) + "&timeMin=" + Timestamp.start(dateMin);
+            //var eventPostData = "timeMax=" + rfc3339(dateMax) + "&timeMin=" + rfc3339(dateMin);
+            requestEventList.open("GET", "https://www.googleapis.com/calendar/v3/calendars/" + calendarIdList[i] + "/events?" + eventPostData, false);
 
             requestEventList.setRequestHeader("Authorization", "Bearer " + accessToken);
             requestEventList.setRequestHeader("HOST", "www.googleapis.com")
             requestEventList.onload = function () {
                 var status = requestEventList.status;
-                var data = JSON.parse(requestEventList.responseText);
-               
+                if (status == 200) {
+                    var items = JSON.parse(requestEventList.responseText).items;
+                    for (var j = 0; j < items.length; j++) {
+                        eventsList.push(new googleCalendarEvent(items[j].summary, items[j].start, items[j].end));
+                    }
+                }
                 count += 1;
             }
-            var dateMax = new Date();
-            var dateMin = new Date();
-            dateMin.setHours(0, 0, 0, 0);
-            dateMax.setHours(23, 59, 59);
-            var postData = "timeMax=" + Timestamp.start(addDays(dateMax, 8)) + "&timeMin=" + Timestamp.start(dateMin);
-            requestEventList.send(postData);
+            requestEventList.send(null);
         }
+        // now can display events!
     }
 
     // Actually sends the request to the server.
@@ -235,12 +241,3 @@ function addDays(date, days) {
     return result;
 }
 
-//"2017-11-27T18:55:06.000Z"
-//"2017-10-26T14:38:35.000Z"
-// 2017-12-04T23:59:59Z
-// 2011-06-03T10:00:00-07:00, 2011-06-03T10:00:00Z
-// 2017-12-04T20:45:20-05:00
-// timeMax=2017-12-04T21:00:31-05:00&timeMin=2017-11-26T00:00:00-05:00
-timeMin = '2012-10-25T00:00:00Z'
-timeMax = '2012-10-26T00:00:00Z' 
-//         2017-12-04T23:59:59Z
