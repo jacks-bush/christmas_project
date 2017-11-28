@@ -44,7 +44,7 @@ var currentWeatherIconElement = document.getElementById("current_icon");
 var currentTempElement = document.getElementById("current_temp");
 
 var weatherRequest = new XMLHttpRequest();
-var weatherAPIKey = "806dfebcbac5da18"
+var weatherAPIKey = "806dfebcbac5da18";
 var currentWeatherAPIRequestWU = "http://api.wunderground.com/api/" + weatherAPIKey + "/forecast/conditions/forecast10day/astronomy/q/41.5749088,-85.8396612.json";
 weatherRequest.open("GET", currentWeatherAPIRequestWU, true);
 weatherRequest.send();
@@ -160,12 +160,12 @@ function googleCalendarEvent(name, startTime, endTime) {
 // 2017-12-01T11:00:00-05:00
 function getDateObjectFromRFC3339String(dateStr, isDateTime) {
     var year = parseInt(dateStr.substring(0, 4));
-    var month = parseInt(dateStr.substring(5, 7));
+    var month = parseInt(dateStr.substring(5, 7)) - 1;
     var day = parseInt(dateStr.substring(8, 10));
     if (isDateTime) {
         var hour = parseInt(dateStr.substring(11, 13));
         var minute = parseInt(dateStr.substring(14, 16));
-        return new Date(year, month, day, hour, minute);
+        return new Date(year, month, day, hour, minute)
     }
     else {
         return new Date(year, month, day);
@@ -211,13 +211,32 @@ request.onload = function () {
                 if (status == 200) {
                     var items = JSON.parse(requestEventList.responseText).items;
                     for (var j = 0; j < items.length; j++) {
-                        eventsList.push(new googleCalendarEvent(items[j].summary, items[j].start, items[j].end));
+                        if (items[j].summary != "Payday ") {
+                            eventsList.push(new googleCalendarEvent(items[j].summary, items[j].start, items[j].end));
+                        }
                     }
                 }
                 count += 1;
             }
             requestEventList.send(null);
         }
+        eventsList.sort(function (a, b) {
+            var dateA;
+            var dateB;
+            if (a.startTime.hasOwnProperty('date')) {
+                dateA = getDateObjectFromRFC3339String(a.startTime.date, false);
+            }
+            else {
+                dateA = getDateObjectFromRFC3339String(a.startTime.dateTime, true);
+            }
+            if (b.startTime.hasOwnProperty('date')) {
+                dateB = getDateObjectFromRFC3339String(b.startTime.date, false);
+            }
+            else {
+                dateB = getDateObjectFromRFC3339String(b.startTime.dateTime, true);
+            }
+            return dateA - dateB;
+        });
         for (var i = 0; i < eventsList.length; i++) {
             var rowIncrement = 20;
             var positionFromTop = rowIncrement * i;
@@ -228,7 +247,6 @@ request.onload = function () {
             eventDiv.innerHTML = eventsList[i].getDisplayString();
 
             googleCalendarContainerElement.appendChild(eventDiv);
-
         }
     }
 
@@ -271,3 +289,37 @@ function addDays(date, days) {
     return result;
 }
 
+
+
+
+var nyTimesWorldRSSFeedRequest = new XMLHttpRequest();
+nyTimesWorldURL = "http://rss.nytimes.com/services/xml/rss/nyt/World.xml";
+nyTimesWorldRSSFeedRequest.open("GET", nyTimesWorldURL, true);
+nyTimesWorldRSSFeedRequest.send();
+nyTimesWorldRSSFeedRequest.onreadystatechange = function () {
+    if (this.readyState === 4 && this.status === 200) {
+        var parser = new DOMParser();
+        xmlDoc = parser.parseFromString(this.responseText, "text/xml");
+        var items = xmlDoc.getElementsByTagName("title");
+        var worldFeedList = [];
+        for (var i = 2; i < 6; i++) {
+            worldFeedList.push(items[i].innerHTML);
+        }
+    }
+}
+
+var nyTimesPoliticsRSSFeedRequest = new XMLHttpRequest();
+nyTimesPoliticsURL = "http://rss.nytimes.com/services/xml/rss/nyt/Politics.xml";
+nyTimesPoliticsRSSFeedRequest.open("GET", nyTimesPoliticsURL, true);
+nyTimesPoliticsRSSFeedRequest.send();
+nyTimesPoliticsRSSFeedRequest.onreadystatechange = function () {
+    if (this.readyState === 4 && this.status === 200) {
+        var parser = new DOMParser();
+        xmlDoc = parser.parseFromString(this.responseText, "text/xml");
+        var items = xmlDoc.getElementsByTagName("title");
+        var politicsFeedList = [];
+        for (var i = 2; i < 6; i++) {
+            politicsFeedList.push(items[i].innerHTML);
+        }
+    }
+}
