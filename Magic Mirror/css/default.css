@@ -69,8 +69,31 @@
     position: absolute;
     top: 50px;
     left: 50px;
-    width: 500px;
+    width: 600px;
     font-family: "HelveticaNeueLTStd-UltLt";
+}
+
+#nytimes-wrapper {
+    font-size: 14px;
+    color: white;
+    position: absolute;
+    font-family: "HelveticaNeueLTStd-Lt";
+    bottom: 500px;
+    left: 50px;
+    width: 600px;
+    color: #808080;
+}
+
+#nytimes-politics {
+    position: absolute;
+    top: 0px;
+    width: 600px;
+}
+
+#nytimes-world {
+    position: absolute;
+    top: 100px;
+    width: 600px;
 }
 
 @font-face {

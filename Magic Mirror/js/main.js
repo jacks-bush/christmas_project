@@ -257,7 +257,7 @@ request.onload = function () {
 request.open("POST", "https://www.googleapis.com/oauth2/v4/token", true);
 
 request.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
-request.setRequestHeader("HOST", "www.googleapis.com")
+request.setRequestHeader("HOST", "www.googleapis.com");
 
 var postData = "client_id=" + clientId + "&client_secret=" + clientSecret + "&refresh_token=" + refreshToken + "&grant_type=refresh_token";
 // Actually sends the request to the server.
@@ -290,36 +290,54 @@ function addDays(date, days) {
 }
 
 
-
+var nyTimesWorldElement = document.getElementById("nytimes-world");
 
 var nyTimesWorldRSSFeedRequest = new XMLHttpRequest();
 nyTimesWorldURL = "http://rss.nytimes.com/services/xml/rss/nyt/World.xml";
-nyTimesWorldRSSFeedRequest.open("GET", nyTimesWorldURL, true);
+nyTimesPoliticsYQL = "https://query.yahooapis.com/v1/public/yql?q=select * from rss where url = '" + nyTimesWorldURL + "'";
+nyTimesWorldRSSFeedRequest.open("GET", nyTimesPoliticsYQL, true);
 nyTimesWorldRSSFeedRequest.send();
 nyTimesWorldRSSFeedRequest.onreadystatechange = function () {
     if (this.readyState === 4 && this.status === 200) {
         var parser = new DOMParser();
         xmlDoc = parser.parseFromString(this.responseText, "text/xml");
         var items = xmlDoc.getElementsByTagName("title");
-        var worldFeedList = [];
         for (var i = 2; i < 6; i++) {
-            worldFeedList.push(items[i].innerHTML);
+            var rowIncrement = 17;
+            var positionFromTop = rowIncrement * i;
+
+            var eventDiv = document.createElement("div");
+            eventDiv.style.position = "absolute";
+            eventDiv.style.top = positionFromTop.toString() + "px";
+            eventDiv.innerHTML = items[i].innerHTML;
+
+            nyTimesWorldElement.appendChild(eventDiv);
         }
     }
 }
 
+var nyTimesPoliticsElement = document.getElementById("nytimes-politics");
+
 var nyTimesPoliticsRSSFeedRequest = new XMLHttpRequest();
 nyTimesPoliticsURL = "http://rss.nytimes.com/services/xml/rss/nyt/Politics.xml";
-nyTimesPoliticsRSSFeedRequest.open("GET", nyTimesPoliticsURL, true);
+nyTimesPoliticsYQL = "https://query.yahooapis.com/v1/public/yql?q=select * from rss where url = '" + nyTimesPoliticsURL + "'";
+nyTimesPoliticsRSSFeedRequest.open("GET", nyTimesPoliticsYQL, true);
 nyTimesPoliticsRSSFeedRequest.send();
 nyTimesPoliticsRSSFeedRequest.onreadystatechange = function () {
     if (this.readyState === 4 && this.status === 200) {
         var parser = new DOMParser();
         xmlDoc = parser.parseFromString(this.responseText, "text/xml");
         var items = xmlDoc.getElementsByTagName("title");
-        var politicsFeedList = [];
         for (var i = 2; i < 6; i++) {
-            politicsFeedList.push(items[i].innerHTML);
+            var rowIncrement = 17;
+            var positionFromTop = rowIncrement * i;
+
+            var eventDiv = document.createElement("div");
+            eventDiv.style.position = "absolute";
+            eventDiv.style.top = positionFromTop.toString() + "px";
+            eventDiv.innerHTML = items[i].innerHTML;
+
+            nyTimesPoliticsElement.appendChild(eventDiv);
         }
     }
 }
