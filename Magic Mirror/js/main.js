@@ -152,7 +152,7 @@ function googleCalendarEvent(name, startTime, endTime) {
             else {
                 hourDispStr = googleCalDate.getHours().toString() + "am";
             }
-            return dayNames[googleCalDate.getDay()] + " " + monthNames[googleCalDate.getMonth()] + " " + googleCalDate.getDate().toString() + " " + name + " " + hourDispStr;
+            return [dayNames[googleCalDate.getDay()] + " " + monthNames[googleCalDate.getMonth()] + " " + googleCalDate.getDate().toString(), "&nbsp;&nbsp;&nbsp; " + name + " " + hourDispStr];
         }
     }
 }
@@ -173,7 +173,7 @@ function getDateObjectFromRFC3339String(dateStr, isDateTime) {
 }
 
 var request = new XMLHttpRequest();
-var googleCalendarContainerElement = document.getElementById("google-calendar-events");
+var googleCalendarContainerElement = document.getElementById("google-calendar-events-wrapper");
 
 request.onload = function () {
 
@@ -240,12 +240,22 @@ request.onload = function () {
         for (var i = 0; i < eventsList.length; i++) {
             var rowIncrement = 20;
             var positionFromTop = rowIncrement * i;
+            var eventPositionFromLeft = 80;
+            var event = eventsList[i].getDisplayString();
+
+            var dateDiv = document.createElement("div");
+            dateDiv.style.position = "absolute";
+            dateDiv.style.top = positionFromTop.toString() + "px";
+            dateDiv.style.color = "#808080";
+            dateDiv.innerHTML = event[0];
+            googleCalendarContainerElement.appendChild(dateDiv);
 
             var eventDiv = document.createElement("div");
             eventDiv.style.position = "absolute";
             eventDiv.style.top = positionFromTop.toString() + "px";
-            eventDiv.innerHTML = eventsList[i].getDisplayString();
-
+            eventDiv.style.left = eventPositionFromLeft.toString() + "px";
+            eventDiv.style.color = "#808080";
+            eventDiv.innerHTML = event[1];
             googleCalendarContainerElement.appendChild(eventDiv);
         }
     }
