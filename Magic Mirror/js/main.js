@@ -189,7 +189,7 @@ function updateCalendarEvents() {
             var dayNames = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
             if (this.startTime.hasOwnProperty('date')) {
                 googleCalDate = getDateObjectFromRFC3339String(startTime.date, false);
-                return dayNames[googleCalDate.getDay()] + " " + monthNames[googleCalDate.getMonth()] + " " + googleCalDate.getDate().toString() + " " + name;
+                return [dayNames[googleCalDate.getDay()] + " " + monthNames[googleCalDate.getMonth()] + " " + googleCalDate.getDate().toString(), "&nbsp;&nbsp;&nbsp; " + name];
             }
             else {
                 googleCalDate = getDateObjectFromRFC3339String(startTime.dateTime, true);
@@ -222,6 +222,7 @@ function updateCalendarEvents() {
 
     var request = new XMLHttpRequest();
     var googleCalendarContainerElement = document.getElementById("google-calendar-events-wrapper");
+    googleCalendarContainerElement.innerHTML = "";
 
     request.onload = function () {
 
@@ -351,6 +352,7 @@ function updateCalendarEvents() {
 
 function updateNYTImesFeedInfo() {
     var nyTimesWorldElement = document.getElementById("nytimes-world");
+    nyTimesWorldElement.innerHTML = "";
 
     var nyTimesWorldRSSFeedRequest = new XMLHttpRequest();
     nyTimesWorldURL = "http://rss.nytimes.com/services/xml/rss/nyt/World.xml";
@@ -377,7 +379,7 @@ function updateNYTImesFeedInfo() {
     }
 
     var nyTimesPoliticsElement = document.getElementById("nytimes-politics");
-
+    nyTimesWorldElement.innerHTML = "";
     var nyTimesPoliticsRSSFeedRequest = new XMLHttpRequest();
     nyTimesPoliticsURL = "http://rss.nytimes.com/services/xml/rss/nyt/Politics.xml";
     nyTimesPoliticsYQL = "https://query.yahooapis.com/v1/public/yql?q=select * from rss where url = '" + nyTimesPoliticsURL + "'";
