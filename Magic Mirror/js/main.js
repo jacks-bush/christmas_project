@@ -286,18 +286,22 @@ function updateCalendarEvents() {
                 }
                 return dateA - dateB;
             });
+            var rowIncrement = 25;
+            var eventPositionFromLeft = 17;
+            var incrementBetweenEventsAndDates = 40;
+            var maxEventEndingPosition = 0;
             for (var i = 0; i < eventsList.length; i++) {
-                var rowIncrement = 20;
-                var positionFromTop = rowIncrement * i;
-                var eventPositionFromLeft = 80;
                 var event = eventsList[i].getDisplayString();
+                var positionFromTop = rowIncrement * i;
+                var iconIncrement = 5;
 
-                var dateDiv = document.createElement("div");
-                dateDiv.style.position = "absolute";
-                dateDiv.style.top = positionFromTop.toString() + "px";
-                dateDiv.style.color = "#808080";
-                dateDiv.innerHTML = event[0];
-                googleCalendarContainerElement.appendChild(dateDiv);
+                var iconDiv = document.createElement("div");
+                iconDiv.style.position = "absolute";
+                iconDiv.style.top = (iconIncrement + positionFromTop).toString() + "px";
+                iconDiv.style.color = "#808080";
+                iconDiv.style.fontSize = "18px";
+                iconDiv.innerHTML = "<i class=\"fa fa-calendar-o\">";
+                googleCalendarContainerElement.appendChild(iconDiv);
 
                 var eventDiv = document.createElement("div");
                 eventDiv.style.position = "absolute";
@@ -305,7 +309,26 @@ function updateCalendarEvents() {
                 eventDiv.style.left = eventPositionFromLeft.toString() + "px";
                 eventDiv.style.color = "#D3D3D3";
                 eventDiv.innerHTML = event[1];
+                eventDiv.id = "event" + i.toString();
                 googleCalendarContainerElement.appendChild(eventDiv);
+            }
+            for (var i = 0; i < eventsList.length; i++) {
+                var rect = document.getElementById("event" + i.toString()).getBoundingClientRect();
+                if (rect.right > maxEventEndingPosition) {
+                    maxEventEndingPosition = rect.right;
+                }
+            }
+            for (var i = 0; i < eventsList.length; i++) {
+                var positionFromTop = rowIncrement * i;
+                var event = eventsList[i].getDisplayString();
+                var dateDiv = document.createElement("div");
+                dateDiv.style.position = "absolute";
+                dateDiv.style.top = positionFromTop.toString() + "px";
+                dateDiv.style.left = (maxEventEndingPosition - 50 + incrementBetweenEventsAndDates).toString() + "px";
+                dateDiv.style.color = "#808080";
+                dateDiv.innerHTML = event[0];
+                googleCalendarContainerElement.appendChild(dateDiv);
+
             }
         }
 
@@ -352,7 +375,6 @@ function updateCalendarEvents() {
 
 function updateNYTImesFeedInfo() {
     var nyTimesWorldElement = document.getElementById("nytimes-world");
-    nyTimesWorldElement.innerHTML = "";
 
     var nyTimesWorldRSSFeedRequest = new XMLHttpRequest();
     nyTimesWorldURL = "http://rss.nytimes.com/services/xml/rss/nyt/World.xml";
@@ -364,6 +386,7 @@ function updateNYTImesFeedInfo() {
             var parser = new DOMParser();
             xmlDoc = parser.parseFromString(this.responseText, "text/xml");
             var items = xmlDoc.getElementsByTagName("title");
+            nyTimesWorldElement.innerHTML = "";
             for (var i = 2; i < 6; i++) {
                 var rowIncrement = 17;
                 var positionFromTop = rowIncrement * i;
@@ -379,7 +402,6 @@ function updateNYTImesFeedInfo() {
     }
 
     var nyTimesPoliticsElement = document.getElementById("nytimes-politics");
-    nyTimesWorldElement.innerHTML = "";
     var nyTimesPoliticsRSSFeedRequest = new XMLHttpRequest();
     nyTimesPoliticsURL = "http://rss.nytimes.com/services/xml/rss/nyt/Politics.xml";
     nyTimesPoliticsYQL = "https://query.yahooapis.com/v1/public/yql?q=select * from rss where url = '" + nyTimesPoliticsURL + "'";
@@ -390,6 +412,7 @@ function updateNYTImesFeedInfo() {
             var parser = new DOMParser();
             xmlDoc = parser.parseFromString(this.responseText, "text/xml");
             var items = xmlDoc.getElementsByTagName("title");
+            nyTimesPoliticsElement.innerHTML = "";
             for (var i = 2; i < 6; i++) {
                 var rowIncrement = 17;
                 var positionFromTop = rowIncrement * i;
