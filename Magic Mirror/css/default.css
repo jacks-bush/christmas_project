@@ -8,28 +8,36 @@
 }
 
 #compliment {
+    position: absolute;
+    bottom: 300px;
+    left: 0;
+    right: 0;
+    margin: auto;
     color: white;
     text-align: center;
-    font-size: 48px;
+    font-size: 72px;
     font-family: "HelveticaNeueLTStd-UltLt";
 }
 
-#footer {
-    position: fixed;
-    bottom: 0;
-    width: 100%;
-}
 
-#datetime {
+#time {
     text-align: center;
     color: white;
     font-size: 100px;
     font-family: "HelveticaNeueLTStd-UltLt";
     position: absolute;
-    left: 0;
-    right: 0;
-    margin: auto;
-    bottom: 150px;
+    top: 100px;
+    left: 20px;
+}
+
+#date {
+    text-align: center;
+    color: white;
+    font-size: 50px;
+    font-family: "HelveticaNeueLTStd-UltLt";
+    position: absolute;
+    left: 20px;
+    top: 50px;
 }
 
 #current_icon {
@@ -37,15 +45,15 @@
     font-size: 120px;
     position: absolute;
     top: 15px;
-    left: 20px;
+    left: 120px;
 }
 
 #current_temp {
     font-family: "HelveticaNeueLTStd-UltLt";
     position: absolute;
     top: 0px;
-    left: 225px;
-    font-size: 100px;
+    left: 280px;
+    font-size: 90px;
 }
 
 #current_weather_container {
@@ -67,7 +75,7 @@
     font-size: 18px;
     color: white;
     position: absolute;
-    top: 50px;
+    top: 270px;
     left: 50px;
     width: 600px;
     font-family: "HelveticaNeueLTStd-UltLt";
@@ -78,7 +86,7 @@
     color: white;
     position: absolute;
     font-family: "HelveticaNeueLTStd-Lt";
-    bottom: 500px;
+    bottom: 250px;
     left: 50px;
     width: 600px;
     color: #808080;

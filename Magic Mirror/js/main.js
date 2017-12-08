@@ -161,19 +161,22 @@ function updateCompliment(firstTime) {
             complimentElement.innerHTML = "Looking Spooky!";
         }
         else {
-            complimentElement.innerHTML = complimentList[Math.floor(Math.random() * complimentList.length)];
+            //complimentElement.innerHTML = complimentList[Math.floor(Math.random() * complimentList.length)]; // temporarily disable for editing
+            complimentElement.innerHTML = "Merry Christmas!" // remove later!!!
         }
     }
 }
 
 // *************************************** DateTime *********************************************
 
-var datetimeElement = document.getElementById('datetime');
+var timeElement = document.getElementById('time');
+var dateElement = document.getElementById('date');
 var date = null;
 
 var updateTime = function () {
     date = moment(new Date());
-    datetimeElement.innerHTML = date.format('h:mm a');
+    timeElement.innerHTML = date.format('h:mm a');
+    dateElement.innerHTML = date.format('dddd, MMMM Do YYYY');
 }
 
 // *************************************** Google Calendar *********************************************
@@ -250,7 +253,6 @@ function updateCalendarEvents() {
                 dateMin.setHours(0, 0, 0, 0);
                 dateMax.setHours(23, 59, 59);
                 var eventPostData = "timeMax=" + Timestamp.start(addDays(dateMax, 7)) + "&timeMin=" + Timestamp.start(dateMin);
-                //var eventPostData = "timeMax=" + rfc3339(dateMax) + "&timeMin=" + rfc3339(dateMin);
                 requestEventList.open("GET", "https://www.googleapis.com/calendar/v3/calendars/" + calendarIdList[i] + "/events?" + eventPostData, false);
 
                 requestEventList.setRequestHeader("Authorization", "Bearer " + accessToken);
