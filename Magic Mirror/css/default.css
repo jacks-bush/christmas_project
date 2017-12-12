@@ -23,41 +23,41 @@
 #time {
     text-align: center;
     color: white;
-    font-size: 100px;
+    font-size: 120px;
     font-family: "HelveticaNeueLTStd-UltLt";
     position: absolute;
-    top: 100px;
+    top: 80px;
     left: 20px;
 }
 
 #date {
     text-align: center;
     color: white;
-    font-size: 50px;
+    font-size: 40px;
     font-family: "HelveticaNeueLTStd-UltLt";
     position: absolute;
     left: 20px;
-    top: 50px;
+    top: 30px;
 }
 
 #current_icon {
     font-family: 'weathericons';
-    font-size: 120px;
+    font-size: 130px;
     position: absolute;
-    top: 15px;
-    left: 120px;
+    top: 13px;
+    left: 30px;
 }
 
 #current_temp {
     font-family: "HelveticaNeueLTStd-UltLt";
     position: absolute;
     top: 0px;
-    left: 280px;
-    font-size: 90px;
+    left: 230px;
+    font-size: 100px;
 }
 
 #current_weather_container {
-    top: 50px;
+    top: 30px;
     right: 500px;
     position: absolute;
     color: white;
@@ -67,8 +67,8 @@
     font-size: 20px;
     color: white;
     position: absolute;
-    top: 150px;
-    right: 250px;
+    top: 130px;
+    right: 290px;
 }
 
 #google-calendar-events-wrapper {
@@ -78,7 +78,6 @@
     top: 270px;
     left: 50px;
     width: 600px;
-    font-family: "HelveticaNeueLTStd-UltLt";
 }
 
 #nytimes-wrapper {

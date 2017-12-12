@@ -142,17 +142,17 @@ function updateCompliment(firstTime) {
             complimentElement.innerHTML = "Happy New Year!";
         }
         else if (monthToday == 1 && dateToday == 14) {
-            complimentElement.innerHTML = "Will you be my Valentine?";
+            complimentElement.innerHTML = "Happy Valentine's Day!";
         }
         else if (monthToday == 2 && dateToday == 17) {
             complimentElement.innerHTML = "Happy St. Paddy's Day!";
         }
         else if (monthToday == 2 && dateToday == 23) {
-            complimentElement.innerHTML = "Happy Birthday Love!";
+            complimentElement.innerHTML = "Happy Birthday Em!";
         }
         else if (monthToday == 5 && dayToday == 17) {
             var anniversaryNumber = today.year - 2017;
-            complimentElement.innerHTML = "Happy " + anniversaryNumber.toString() + " Year Anniversary Babe!";
+            complimentElement.innerHTML = "Happy " + anniversaryNumber.toString() + " Year Anniversary Em!";
         }
         else if (monthToday == 9 && dayToday == 26) {
             complimentElement.innerHTML = "Remember, remember the 26th of October";
@@ -309,7 +309,7 @@ function updateCalendarEvents() {
                 eventDiv.style.position = "absolute";
                 eventDiv.style.top = positionFromTop.toString() + "px";
                 eventDiv.style.left = eventPositionFromLeft.toString() + "px";
-                eventDiv.style.color = "#D3D3D3";
+                eventDiv.style.color = "#C0C0C0";
                 eventDiv.innerHTML = event[1];
                 eventDiv.id = "event" + i.toString();
                 googleCalendarContainerElement.appendChild(eventDiv);
