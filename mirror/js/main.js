@@ -17,7 +17,6 @@ weatherNightIcons["snow"] = "wi wi-night-alt-snow";
 weatherNightIcons["tstorms"] = "wi wi-night-alt-thunderstorm";
 weatherNightIcons["unknown"] = "wi wi-night-clear";
 
-
 var weatherDayIcons = {};
 weatherDayIcons["chanceflurries"] = "wi wi-snow-wind";
 weatherDayIcons["chancerain"] = "wi wi-showers";
@@ -38,7 +37,6 @@ weatherDayIcons["snow"] = "wi wi-snow";
 weatherDayIcons["sunny"] = "wi wi-day-sunny";
 weatherDayIcons["tstorms"] = "wi wi-thunderstorm";
 weatherDayIcons["unknown"] = "wi wi-day-sunny";
-
 
 var currentWeatherIconElement = document.getElementById("current_icon");
 var currentTempElement = document.getElementById("current_temp");
