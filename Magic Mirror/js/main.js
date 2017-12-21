@@ -239,7 +239,6 @@ function updateCalendarEvents() {
         requestCalendarList.open("GET", "https://www.googleapis.com/calendar/v3/users/me/calendarList/", true);
 
         requestCalendarList.setRequestHeader("Authorization", "Bearer " + accessToken);
-        requestCalendarList.setRequestHeader("HOST", "www.googleapis.com")
         requestCalendarList.onload = function () {
             var status = requestCalendarList.status;
             var data = JSON.parse(requestCalendarList.responseText);
@@ -256,7 +255,6 @@ function updateCalendarEvents() {
                 requestEventList.open("GET", "https://www.googleapis.com/calendar/v3/calendars/" + calendarIdList[i] + "/events?" + eventPostData, false);
 
                 requestEventList.setRequestHeader("Authorization", "Bearer " + accessToken);
-                requestEventList.setRequestHeader("HOST", "www.googleapis.com")
                 requestEventList.onload = function () {
                     var status = requestEventList.status;
                     if (status == 200) {
@@ -340,7 +338,6 @@ function updateCalendarEvents() {
     request.open("POST", "https://www.googleapis.com/oauth2/v4/token", true);
 
     request.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
-    request.setRequestHeader("HOST", "www.googleapis.com");
 
     var postData = "client_id=" + clientId + "&client_secret=" + clientSecret + "&refresh_token=" + refreshToken + "&grant_type=refresh_token";
     // Actually sends the request to the server.
