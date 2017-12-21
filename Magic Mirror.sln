@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
 VisualStudioVersion = 15.0.26430.14
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{262852C6-CD72-467D-83FE-5EEB1973A190}") = "mirror", "Magic Mirror\mirror.jsproj", "{04B16E90-C884-45CC-B1F1-2BC9CB5AFAE3}"
+Project("{262852C6-CD72-467D-83FE-5EEB1973A190}") = "mirror", "mirror\mirror.jsproj", "{04B16E90-C884-45CC-B1F1-2BC9CB5AFAE3}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
