@@ -38,7 +38,6 @@ weatherDayIcons["sunny"] = "wi wi-day-sunny";
 weatherDayIcons["tstorms"] = "wi wi-thunderstorm";
 weatherDayIcons["unknown"] = "wi wi-day-sunny";
 
-
 var currentWeatherIconElement = document.getElementById("current_icon");
 var currentTempElement = document.getElementById("current_temp");
 
