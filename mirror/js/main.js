@@ -41,9 +41,6 @@ weatherDayIcons["unknown"] = "wi wi-day-sunny";
 var currentWeatherIconElement = document.getElementById("current_icon");
 var currentTempElement = document.getElementById("current_temp");
 
-// get git hash when website loads
-var gitHash = '<?php echo trim(`git rev-parse HEAD`) ?>';
-
 $(document).ready(function checkVersion() {
     $.getJSON('githash.php', {}, function (json, textStatus) {
         if (json) {
@@ -178,7 +175,7 @@ function updateCompliment(firstTime) {
         }
         else {
             //complimentElement.innerHTML = complimentList[Math.floor(Math.random() * complimentList.length)]; // temporarily disable for editing
-            complimentElement.innerHTML = "Merry Christmas!" // remove later!!!
+            complimentElement.innerHTML = "Merry Christdmas!" // remove later!!!
         }
     }
 }
