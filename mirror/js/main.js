@@ -41,6 +41,23 @@ weatherDayIcons["unknown"] = "wi wi-day-sunny";
 var currentWeatherIconElement = document.getElementById("current_icon");
 var currentTempElement = document.getElementById("current_temp");
 
+// get git hash when website loads
+var gitHash = '<?php echo trim(`git rev-parse HEAD`) ?>';
+
+$(document).ready(function checkVersion() {
+    $.getJSON('githash.php', {}, function (json, textStatus) {
+        if (json) {
+            if (json.gitHash != gitHash) {
+                window.location.reload();
+                window.location.href = window.location.href;
+            }
+        }
+    });
+    setTimeout(function () {
+        checkVersion();
+    }, 3000);
+});
+
 function updateWeatherIcons() {
     var weatherRequest = new XMLHttpRequest();
     var weatherAPIKey = "806dfebcbac5da18";
