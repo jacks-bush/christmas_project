@@ -161,7 +161,7 @@ function updateCompliment(firstTime) {
         }
         else {
             //complimentElement.innerHTML = complimentList[Math.floor(Math.random() * complimentList.length)]; // temporarily disable for editing
-            complimentElement.innerHTML = "Merry" // remove later!!!
+            complimentElement.innerHTML = "Merry Christmas!" // remove later!!!
         }
     }
 }
