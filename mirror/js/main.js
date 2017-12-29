@@ -75,7 +75,7 @@ function updateWeatherIcons() {
                 dayElement.style.position = "absolute";
                 dayElement.style.top = positionFromTop + "px";
                 dayElement.style.left = "0px";
-                dayElement.style.color = "#808080";
+                dayElement.style.color = "#D3D3D3";
 
                 var weatherIconElement = document.getElementById("icon-" + i.toString());
                 weatherIconElement.className = weatherDayIcons[simpleForecastDay[i].icon];
@@ -89,7 +89,7 @@ function updateWeatherIcons() {
                 upIconElement.style.position = "absolute";
                 upIconElement.style.top = positionFromTopIcon + "px"
                 upIconElement.style.left = (distanceFromLeft + incrementFromWeatherIconToUpIcon).toString() + "px";
-                upIconElement.style.color = "#808080";
+                upIconElement.style.color = "#D3D3D3";
                 distanceFromLeft += incrementFromWeatherIconToUpIcon;
 
                 var highElement = document.getElementById("high-" + i.toString());
@@ -104,7 +104,7 @@ function updateWeatherIcons() {
                 downIconElement.style.position = "absolute";
                 downIconElement.style.top = positionFromTopIcon + "px";
                 downIconElement.style.left = (distanceFromLeft + incrementFromHighToDownIcon).toString() + "px";
-                downIconElement.style.color = "#808080";
+                downIconElement.style.color = "#D3D3D3";
                 distanceFromLeft += incrementFromHighToDownIcon;
 
                 var lowElement = document.getElementById("low-" + i.toString());
@@ -161,7 +161,7 @@ function updateCompliment(firstTime) {
         }
         else {
             //complimentElement.innerHTML = complimentList[Math.floor(Math.random() * complimentList.length)]; // temporarily disable for editing
-            complimentElement.innerHTML = "Merry Christmas!" // remove later!!!
+            complimentElement.innerHTML = "Merry Christmas!!" // remove later!!!
         }
     }
 }
@@ -297,7 +297,7 @@ function updateCalendarEvents() {
                 var iconDiv = document.createElement("div");
                 iconDiv.style.position = "absolute";
                 iconDiv.style.top = (iconIncrement + positionFromTop).toString() + "px";
-                iconDiv.style.color = "#808080";
+                iconDiv.style.color = "#D3D3D3";
                 iconDiv.style.fontSize = "18px";
                 iconDiv.innerHTML = "<i class=\"fa fa-calendar-o\">";
                 googleCalendarContainerElement.appendChild(iconDiv);
@@ -324,10 +324,9 @@ function updateCalendarEvents() {
                 dateDiv.style.position = "absolute";
                 dateDiv.style.top = positionFromTop.toString() + "px";
                 dateDiv.style.left = (maxEventEndingPosition - 50 + incrementBetweenEventsAndDates).toString() + "px";
-                dateDiv.style.color = "#808080";
+                dateDiv.style.color = "#D3D3D3";
                 dateDiv.innerHTML = event[0];
                 googleCalendarContainerElement.appendChild(dateDiv);
-
             }
         }
 
