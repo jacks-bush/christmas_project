@@ -292,7 +292,7 @@ function updateCalendarEvents() {
             for (var i = 0; i < eventsList.length; i++) {
                 var event = eventsList[i].getDisplayString();
                 var positionFromTop = rowIncrement * i;
-                var iconIncrement = 5;
+                var iconIncrement = 4;
 
                 var iconDiv = document.createElement("div");
                 iconDiv.style.position = "absolute";
