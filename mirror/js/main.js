@@ -258,7 +258,7 @@ function updateCalendarEvents() {
                     if (status == 200) {
                         var items = JSON.parse(requestEventList.responseText).items;
                         for (var j = 0; j < items.length; j++) {
-                            if (items[j].summary != "Payday ") {
+                            if (items[j].summary != "Payday " && items[j].summary != "Request spotify money") {
                                 eventsList.push(new googleCalendarEvent(items[j].summary, items[j].start, items[j].end));
                             }
                         }
