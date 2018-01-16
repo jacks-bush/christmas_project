@@ -160,8 +160,7 @@ function updateCompliment(firstTime) {
             complimentElement.innerHTML = "Looking Spooky!";
         }
         else {
-            //complimentElement.innerHTML = complimentList[Math.floor(Math.random() * complimentList.length)]; // temporarily disable for editing
-            complimentElement.innerHTML = "Merry Christmas!" // remove later!!!
+            complimentElement.innerHTML = complimentList[Math.floor(Math.random() * complimentList.length)]; 
         }
     }
 }
@@ -384,8 +383,8 @@ function updateNYTImesFeedInfo() {
             xmlDoc = parser.parseFromString(this.responseText, "text/xml");
             var items = xmlDoc.getElementsByTagName("title");
             nyTimesWorldElement.innerHTML = "";
-            for (var i = 2; i < 6; i++) {
-                var rowIncrement = 17;
+            for (var i = 2; i < 4; i++) {
+                var rowIncrement = 20;
                 var positionFromTop = rowIncrement * i;
 
                 var eventDiv = document.createElement("div");
@@ -410,8 +409,8 @@ function updateNYTImesFeedInfo() {
             xmlDoc = parser.parseFromString(this.responseText, "text/xml");
             var items = xmlDoc.getElementsByTagName("title");
             nyTimesPoliticsElement.innerHTML = "";
-            for (var i = 2; i < 6; i++) {
-                var rowIncrement = 17;
+            for (var i = 2; i < 4; i++) {
+                var rowIncrement = 20;
                 var positionFromTop = rowIncrement * i;
 
                 var eventDiv = document.createElement("div");
