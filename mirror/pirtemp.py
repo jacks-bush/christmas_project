@@ -22,24 +22,18 @@ while True:
 		# write buffer to terminal
 		sys.stdout.flush()
 		
-		# if it's on and signal received, turn on
+		# if it's off and signal received, turn on
 		if turned_off:
 			turned_off = False
-			turn_on()
+			print "Turn on"
 		else:
-			# if signal received and it's off and it's been longer than 60 seconds, turn on
+			# if signal received and it's on and it's been longer than 60 seconds, turn on
 			if not turned_off and time.time() > (last_motion_time + SHUTOFF_DELAY):
 				turned_off = True
-				turn_off()
+				print "turn off"
 		
 		# delay a bit between each reading
 		time.sleep(.1)
 			
-
-def turn_on():
-	print "TURN ON!"
-
-def turn_off():
-	print "TURN OFF!"
 	
 			
