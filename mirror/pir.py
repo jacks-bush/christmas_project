@@ -23,15 +23,14 @@ def main():
 			# write buffer to terminal
 			sys.stdout.flush()
 			
-			# if it's on and signal received, turn on
+			# if it's off and signal received, turn on
 			if turned_off:
 				turned_off = False
 				turn_on()
 			else:
-				# if signal received and it's off and it's been longer than 60 seconds, turn on
-				if not turned_off and time.time() > (last_motion_time + SHUTOFF_DELAY):
-					turned_off = True
-					turn_off()
+				# if signal received and it's on and it's been longer than 60 seconds, turn off
+				turned_off = True
+				turn_off()
 			
 			# delay a bit between each reading
 			time.sleep(.1)
@@ -41,7 +40,7 @@ def turn_on():
 	subprocess.call('sh /var/www/html/mirror/mirror/turn_on.sh', shell=True)
 
 def turn_off():
-	subprocess.call('sh /var/www/html/mirror/mirror/turn_of.sh', shell=True)
+	subprocess.call('sh /var/www/html/mirror/mirror/turn_off.sh', shell=True)
 	
 
 if __name__ == '__main__':
