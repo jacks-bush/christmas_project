@@ -385,7 +385,6 @@ function updateNYTImesFeedInfo() {
             var parser = new DOMParser();
             xmlDoc = parser.parseFromString(this.responseText, "text/xml");
             var items = xmlDoc.getElementsByTagName("title");
-            nyTimesMarqueeElement.innerHTML = "";
             for (var i = 2; i < 7; i++) {
                 // append us politics news to marquee
                 nyTimesMarqueeElement.innerHTML += items[i].innerHTML + "&nbsp;&nbsp;&nbsp;&nbsp;"
