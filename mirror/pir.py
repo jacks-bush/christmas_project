@@ -25,14 +25,14 @@ def main():
 			if turned_off:
 				turned_off = False
 				turn_on()
+				
 			else:
 				# if it's on, turn off
 				turned_off = True
 				turn_off()
-			
-			# delay a bit between each reading
-			time.sleep(.1)
-			
+
+			# after turning monitor on or off, wait 5 seconds before reading again
+			time.sleep(5)				
 
 def turn_on():
 	subprocess.call('sh /var/www/html/mirror/mirror/turn_on.sh', shell=True)
