@@ -121,7 +121,7 @@ function updateWeatherIcons() {
 
 // *************************************** Compliment *********************************************
 
-var complimentList = ["Hello", "You look particularly stunning today", "Cute shirt", "Hello Beautiful!", "I love your hair today", "Gorgeous", "Beautiful", "Lookin' good!", "You're awesome!"]
+var complimentList = ["You look particularly stunning today", "Cute shirt", "Hello Beautiful!", "I love your hair today", "Gorgeous!", "Beautiful!", "Lookin' good!", "You're awesome!", "More Beautiful Every Day!", "You look lovely!"]
 var complimentElement = document.getElementById('compliment');
 var today = moment(new Date());
 function updateCompliment(firstTime) {
@@ -160,7 +160,7 @@ function updateCompliment(firstTime) {
             complimentElement.innerHTML = "Looking Spooky!";
         }
         else {
-            complimentElement.innerHTML = complimentList[Math.floor(Math.random() * complimentList.length)]; 
+            complimentElement.innerHTML = complimentList[Math.floor(Math.random() * complimentList.length)];
         }
     }
 }
@@ -370,7 +370,10 @@ function updateCalendarEvents() {
 // *************************************** NY Times Feed *********************************************
 
 function updateNYTImesFeedInfo() {
-    var nyTimesWorldElement = document.getElementById("nytimes-world");
+    var nyTimesMarqueeElement = document.getElementById("nytimes-marquee");
+
+    // clear contents of marquee
+    nyTimesMarqueeElement.innerHTML = "*** U.S. POLITICS ***&nbsp;&nbsp;&nbsp;"
 
     var nyTimesWorldRSSFeedRequest = new XMLHttpRequest();
     nyTimesWorldURL = "http://rss.nytimes.com/services/xml/rss/nyt/World.xml";
@@ -382,22 +385,15 @@ function updateNYTImesFeedInfo() {
             var parser = new DOMParser();
             xmlDoc = parser.parseFromString(this.responseText, "text/xml");
             var items = xmlDoc.getElementsByTagName("title");
-            nyTimesWorldElement.innerHTML = "";
-            for (var i = 2; i < 4; i++) {
-                var rowIncrement = 20;
-                var positionFromTop = rowIncrement * i;
-
-                var eventDiv = document.createElement("div");
-                eventDiv.style.position = "absolute";
-                eventDiv.style.top = positionFromTop.toString() + "px";
-                eventDiv.innerHTML = items[i].innerHTML;
-
-                nyTimesWorldElement.appendChild(eventDiv);
+            nyTimesMarqueeElement.innerHTML = "";
+            for (var i = 2; i < 7; i++) {
+                // append us politics news to marquee
+                nyTimesMarqueeElement.innerHTML += items[i].innerHTML + "&nbsp;&nbsp;&nbsp;&nbsp;"
             }
         }
     }
 
-    var nyTimesPoliticsElement = document.getElementById("nytimes-politics");
+    nyTimesMarqueeElement.innerHTML += "*** WORLD NEWS ***&nbsp;&nbsp;&nbsp;"
     var nyTimesPoliticsRSSFeedRequest = new XMLHttpRequest();
     nyTimesPoliticsURL = "http://rss.nytimes.com/services/xml/rss/nyt/Politics.xml";
     nyTimesPoliticsYQL = "https://query.yahooapis.com/v1/public/yql?q=select * from rss where url = '" + nyTimesPoliticsURL + "'";
@@ -408,17 +404,9 @@ function updateNYTImesFeedInfo() {
             var parser = new DOMParser();
             xmlDoc = parser.parseFromString(this.responseText, "text/xml");
             var items = xmlDoc.getElementsByTagName("title");
-            nyTimesPoliticsElement.innerHTML = "";
-            for (var i = 2; i < 4; i++) {
-                var rowIncrement = 20;
-                var positionFromTop = rowIncrement * i;
-
-                var eventDiv = document.createElement("div");
-                eventDiv.style.position = "absolute";
-                eventDiv.style.top = positionFromTop.toString() + "px";
-                eventDiv.innerHTML = items[i].innerHTML;
-
-                nyTimesPoliticsElement.appendChild(eventDiv);
+            for (var i = 2; i < 7; i++) {
+                // append world news to marquee
+                nyTimesMarqueeElement.innerHTML += items[i].innerHTML + "&nbsp;&nbsp;&nbsp;&nbsp;"
             }
         }
     }

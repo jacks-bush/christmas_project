@@ -9,7 +9,7 @@
 
 #compliment {
     position: absolute;
-    bottom: 300px;
+    bottom: 220px;
     left: 0;
     right: 0;
     margin: auto;
@@ -85,22 +85,12 @@
     color: white;
     position: absolute;
     font-family: "HelveticaNeueLTStd-Lt";
-    bottom: 270px;
-    left: 50px;
+    left: 0;
+    right: 0;
+    bottom: 100px;
+    margin: auto;
     width: 1000px;
     color: #D3D3D3;
-}
-
-#nytimes-politics {
-    position: absolute;
-    top: 0px;
-    width: 1000px;
-}
-
-#nytimes-world {
-    position: absolute;
-    top: 100px;
-    width: 1000px;
 }
 
 @font-face {
