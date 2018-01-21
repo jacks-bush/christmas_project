@@ -2,7 +2,7 @@
 
 import sys
 import time
-import Rpi.GPIO as io
+import RPi.GPIO as io
 import subprocess
 
 io.setmode(io.BCM)
