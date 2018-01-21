@@ -42,6 +42,13 @@ def turn_on():
 
 def turn_off():
 	subprocess.call('sh /var/www/html/mirror/mirror/turn_of.sh', shell=True)
+	
+
+if __name__ == '__main__':
+	try:
+		main()
+	except KeyboardInterrupt:
+		io.cleanup()
 			
 			
 			
