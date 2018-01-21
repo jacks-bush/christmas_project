@@ -17,6 +17,8 @@ def main():
 	while True:
 		# signal received
 		if io.input(PIR_PIN):
+			# upate time of last motion
+			last_motion_time = time.time()
 			
 			# write buffer to terminal
 			sys.stdout.flush()
@@ -32,7 +34,18 @@ def main():
 				turn_off()
 
 			# after turning monitor on or off, wait 7 seconds before reading again (output lasts 5)
-			time.sleep(7)				
+			time.sleep(7)	
+		
+		# signal is off		
+		else:
+			# shut off after 30 mins
+			if turned_off == False and time.time() > (last_motion_time + 1800):
+				turned_off = True
+				turn_off()
+		
+		# delay a bit between each reading
+		time.sleep(.1)
+		
 
 def turn_on():
 	subprocess.call('sh /var/www/html/mirror/mirror/turn_on.sh', shell=True)
