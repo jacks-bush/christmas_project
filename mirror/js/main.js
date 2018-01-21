@@ -372,8 +372,7 @@ function updateCalendarEvents() {
 function updateNYTImesFeedInfo() {
     var nyTimesMarqueeElement = document.getElementById("nytimes-marquee");
 
-    // clear contents of marquee
-    nyTimesMarqueeElement.innerHTML = "*** U.S. POLITICS ***&nbsp;&nbsp;&nbsp;"
+    var marqueeStr = "*** US POLITICS ***"
 
     var nyTimesPoliticsRSSFeedRequest = new XMLHttpRequest();
     nyTimesPoliticsURL = "http://rss.nytimes.com/services/xml/rss/nyt/Politics.xml";
@@ -387,11 +386,11 @@ function updateNYTImesFeedInfo() {
             var items = xmlDoc.getElementsByTagName("title");
             for (var i = 2; i < 7; i++) {
                 // append politics info to marquee
-                nyTimesMarqueeElement.innerHTML += items[i].innerHTML + "&nbsp;&nbsp;&nbsp;&nbsp;"
+                marqueeStr += "&nbsp;&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;&nbsp;" + items[i].innerHTML
             }
 
             // grab nytimes world info after politics
-            nyTimesMarqueeElement.innerHTML += "*** WORLD NEWS ***&nbsp;&nbsp;&nbsp;"
+            marqueeStr += "&nbsp;&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;&nbsp;*** WORLD NEWS ***"
             var nyTimesWorldRSSFeedRequest = new XMLHttpRequest();
             nyTimesWorldURL = "http://rss.nytimes.com/services/xml/rss/nyt/World.xml";
             nyTimesPoliticsYQL = "https://query.yahooapis.com/v1/public/yql?q=select * from rss where url = '" + nyTimesWorldURL + "'";
@@ -404,8 +403,11 @@ function updateNYTImesFeedInfo() {
                     var items = xmlDoc.getElementsByTagName("title");
                     for (var i = 2; i < 7; i++) {
                         // append us politics news to marquee
-                        nyTimesMarqueeElement.innerHTML += items[i].innerHTML + "&nbsp;&nbsp;&nbsp;&nbsp;"
+                        marqueeStr += "&nbsp;&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;&nbsp;" + items[i].innerHTML
                     }
+
+                    // finally update marquee to new text
+                    nyTimesMarqueeElement.innerHTML = marqueeStr;
                 }
             }
         }
