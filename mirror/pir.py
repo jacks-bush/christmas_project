@@ -17,18 +17,16 @@ def main():
 	while True:
 		# signal received
 		if io.input(PIR_PIN):
-			# update last motion time
-			last_motion_time = time.time()
 			
 			# write buffer to terminal
 			sys.stdout.flush()
 			
-			# if it's off and signal received, turn on
+			# if it's off, turn on
 			if turned_off:
 				turned_off = False
 				turn_on()
 			else:
-				# if signal received and it's on and it's been longer than 60 seconds, turn off
+				# if it's on, turn off
 				turned_off = True
 				turn_off()
 			
