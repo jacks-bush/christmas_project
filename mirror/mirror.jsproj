@@ -74,6 +74,7 @@
     <Content Include="js\main.js" />
     <Content Include="css\default.css" />
     <Content Include="js\moment.js" />
+    <Content Include="pir.py" />
     <Content Include="weathericons-regular-webfont.eot" />
     <Content Include="weathericons-regular-webfont.svg" />
     <Content Include="weathericons-regular-webfont.ttf" />
