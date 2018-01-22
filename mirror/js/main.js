@@ -121,7 +121,7 @@ function updateWeatherIcons() {
 
 // *************************************** Compliment *********************************************
 
-var complimentList = ["You look particularly stunning today", "Cute shirt", "Hello Beautiful!", "I love your hair today", "Gorgeous!", "Beautiful!", "Lookin' good!", "You're awesome!", "More Beautiful Every Day!", "You look lovely!"]
+var complimentList = ["Hello", "You look particularly stunning today", "Cute shirt", "Hello Beautiful!", "I love your hair today", "Gorgeous", "Beautiful", "Lookin' good!", "You're awesome!"]
 var complimentElement = document.getElementById('compliment');
 var today = moment(new Date());
 function updateCompliment(firstTime) {
@@ -370,10 +370,34 @@ function updateCalendarEvents() {
 // *************************************** NY Times Feed *********************************************
 
 function updateNYTImesFeedInfo() {
-    var nyTimesMarqueeElement = document.getElementById("nytimes-marquee");
+    var nyTimesWorldElement = document.getElementById("nytimes-world");
 
-    var marqueeStr = "*** US POLITICS ***"
+    var nyTimesWorldRSSFeedRequest = new XMLHttpRequest();
+    nyTimesWorldURL = "http://rss.nytimes.com/services/xml/rss/nyt/World.xml";
+    nyTimesPoliticsYQL = "https://query.yahooapis.com/v1/public/yql?q=select * from rss where url = '" + nyTimesWorldURL + "'";
+    nyTimesWorldRSSFeedRequest.open("GET", nyTimesPoliticsYQL, true);
+    nyTimesWorldRSSFeedRequest.send();
+    nyTimesWorldRSSFeedRequest.onreadystatechange = function () {
+        if (this.readyState === 4 && this.status === 200) {
+            var parser = new DOMParser();
+            xmlDoc = parser.parseFromString(this.responseText, "text/xml");
+            var items = xmlDoc.getElementsByTagName("title");
+            nyTimesWorldElement.innerHTML = "";
+            for (var i = 2; i < 4; i++) {
+                var rowIncrement = 20;
+                var positionFromTop = rowIncrement * i;
 
+                var eventDiv = document.createElement("div");
+                eventDiv.style.position = "absolute";
+                eventDiv.style.top = positionFromTop.toString() + "px";
+                eventDiv.innerHTML = items[i].innerHTML;
+
+                nyTimesWorldElement.appendChild(eventDiv);
+            }
+        }
+    }
+
+    var nyTimesPoliticsElement = document.getElementById("nytimes-politics");
     var nyTimesPoliticsRSSFeedRequest = new XMLHttpRequest();
     nyTimesPoliticsURL = "http://rss.nytimes.com/services/xml/rss/nyt/Politics.xml";
     nyTimesPoliticsYQL = "https://query.yahooapis.com/v1/public/yql?q=select * from rss where url = '" + nyTimesPoliticsURL + "'";
@@ -384,36 +408,20 @@ function updateNYTImesFeedInfo() {
             var parser = new DOMParser();
             xmlDoc = parser.parseFromString(this.responseText, "text/xml");
             var items = xmlDoc.getElementsByTagName("title");
-            for (var i = 2; i < 7; i++) {
-                // append politics info to marquee
-                marqueeStr += "&nbsp;&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;&nbsp;" + items[i].innerHTML
-            }
+            nyTimesPoliticsElement.innerHTML = "";
+            for (var i = 2; i < 4; i++) {
+                var rowIncrement = 20;
+                var positionFromTop = rowIncrement * i;
 
-            // grab nytimes world info after politics
-            marqueeStr += "&nbsp;&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;&nbsp;*** WORLD NEWS ***"
-            var nyTimesWorldRSSFeedRequest = new XMLHttpRequest();
-            nyTimesWorldURL = "http://rss.nytimes.com/services/xml/rss/nyt/World.xml";
-            nyTimesPoliticsYQL = "https://query.yahooapis.com/v1/public/yql?q=select * from rss where url = '" + nyTimesWorldURL + "'";
-            nyTimesWorldRSSFeedRequest.open("GET", nyTimesPoliticsYQL, true);
-            nyTimesWorldRSSFeedRequest.send();
-            nyTimesWorldRSSFeedRequest.onreadystatechange = function () {
-                if (this.readyState === 4 && this.status === 200) {
-                    var parser = new DOMParser();
-                    xmlDoc = parser.parseFromString(this.responseText, "text/xml");
-                    var items = xmlDoc.getElementsByTagName("title");
-                    for (var i = 2; i < 7; i++) {
-                        // append us politics news to marquee
-                        marqueeStr += "&nbsp;&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;&nbsp;" + items[i].innerHTML
-                    }
+                var eventDiv = document.createElement("div");
+                eventDiv.style.position = "absolute";
+                eventDiv.style.top = positionFromTop.toString() + "px";
+                eventDiv.innerHTML = items[i].innerHTML;
 
-                    // finally update marquee to new text
-                    nyTimesMarqueeElement.innerHTML = marqueeStr;
-                }
+                nyTimesPoliticsElement.appendChild(eventDiv);
             }
         }
     }
-
-    
 }
 
 // *************************************** Setting Intervals to Update Content *********************************************
