@@ -57,6 +57,13 @@ function updateWeatherIcons() {
             if (sunrise < dateNow && dateNow < sunset) { currentWeatherIconElement.className = weatherDayIcons[jsonObj.current_observation.icon]; }
             else { currentWeatherIconElement.className = weatherNightIcons[jsonObj.current_observation.icon]; }
 
+            var feelsLikeTemp = jsonObj.current_observation.feelslke_f;
+            var windSpeed = jsonObj.current_observation.wind_mph;
+            var windDirection = jsonObj.current_observation.wind_dir;
+            var windDegrees = jsonObj.current_observation.wind_degrees;
+            //var snowInches = ;
+            //var rainInches = ;
+
             currentTempElement.innerHTML = jsonObj.current_observation.temp_f + "&#176;";
             var simpleForecastDay = jsonObj.forecast.simpleforecast.forecastday;
             for (var i = 0; i < 5; i++) {
