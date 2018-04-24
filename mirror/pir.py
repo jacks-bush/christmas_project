@@ -16,7 +16,7 @@ def main():
 	
 	while True:
 		# signal received
-		if io.input(PIR_PIN):
+		if not io.input(PIR_PIN):
 			# upate time of last button press
 			last_button_press = time.time()
 			
