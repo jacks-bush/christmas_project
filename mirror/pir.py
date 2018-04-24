@@ -34,7 +34,7 @@ def main():
 				turn_off()
 				
 			# after turning monitor on or off, wait 5 seconds before reading again
-			time.sleep(5)	
+			time.sleep(2)	
 		
 		# signal is off		
 		else:
