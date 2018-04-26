@@ -434,7 +434,7 @@ function updateNYTImesFeedInfo() {
 // *************************************** Setting Intervals to Update Content *********************************************
 
 updateWeatherIcons();
-setInterval(updateWeatherIcons, 60000); // every minute
+setInterval(updateWeatherIcons, 180000); // every 3 minutes
 
 updateCompliment(true);
 setInterval(updateCompliment, 3600000); // every hour
