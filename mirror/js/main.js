@@ -128,7 +128,7 @@ function updateWeatherIcons() {
 
 // *************************************** Compliment *********************************************
 
-var complimentList = ["Hello", "You look particularly stunning today", "Cute shirt", "Hello Beautiful!", "I love your hair today", "Gorgeous", "Beautiful", "Lookin' good!", "You're awesome!"]
+var complimentList = ["Go kick some ass today!", "You look particularly stunning today", "You light up the room", "You have a great sense of humor", "You bring out the best in other people", "Gorgeous", "You're like sunshine on a rainy day", "You are strong and thoughful", "Your perspective is refreshing", "You have great ideas", "One day at a time!", "You are making a difference!", "Being around you makes everything better", "You're a great exammple to others", "Your creative potential seems limitless"]
 var complimentElement = document.getElementById('compliment');
 var today = moment(new Date());
 function updateCompliment(firstTime) {
@@ -265,7 +265,7 @@ function updateCalendarEvents() {
                     if (status == 200) {
                         var items = JSON.parse(requestEventList.responseText).items;
                         for (var j = 0; j < items.length; j++) {
-                            if (items[j].summary != "Payday " && items[j].summary != "Request spotify money") {
+                            if (items[j].summary != "Payday " && items[j].summary != "Request spotify money" && items[j].summary != "Look at credit card balances") {
                                 eventsList.push(new googleCalendarEvent(items[j].summary, items[j].start, items[j].end));
                             }
                         }
