@@ -4,6 +4,7 @@ var weatherNightIcons = {};
 weatherNightIcons["chanceflurries"] = "wi wi-night-alt-snow-wind";
 weatherNightIcons["chancerain"] = "wi wi-night-alt-showers";
 weatherNightIcons["chancesleet"] = "wi wi-night-alt-sleet";
+weatherNightIcons["sleet"] = "wi wi-night-alt-sleet";
 weatherNightIcons["chancesnow"] = "wi wi-night-alt-snow";
 weatherNightIcons["chancetstorms"] = "wi wi-night-alt-thunderstorm";
 weatherNightIcons["clear"] = "wi wi-night-clear";
@@ -21,6 +22,7 @@ var weatherDayIcons = {};
 weatherDayIcons["chanceflurries"] = "wi wi-snow-wind";
 weatherDayIcons["chancerain"] = "wi wi-showers";
 weatherDayIcons["chancesleet"] = "wi wi-sleet";
+weatherDayIcons["sleet"] = "wi wi-sleet";
 weatherDayIcons["chancesnow"] = "wi wi-snow";
 weatherDayIcons["chancetstorms"] = "wi wi-thunderstorm";
 weatherDayIcons["clear"] = "wi wi-day-sunny";
@@ -128,7 +130,7 @@ function updateWeatherIcons() {
 
 // *************************************** Compliment *********************************************
 
-var complimentList = ["Go kick some ass today!", "You look particularly stunning today", "You light up the room", "You have a great sense of humor", "You bring out the best in other people", "Gorgeous", "You're like sunshine on a rainy day", "You are strong and thoughful", "Your perspective is refreshing", "You have great ideas", "One day at a time!", "You are making a difference!", "Being around you makes everything better", "You're a great exammple to others", "Your creative potential seems limitless"]
+var complimentList = ["Go kick some ass today!", "You look particularly stunning today", "You light up the room", "You have a great sense of humor", "You bring out the best in other people", "Gorgeous", "You're like sunshine on a rainy day", "You are strong and thoughful", "Your perspective is refreshing", "You have great ideas", "One day at a time!", "You are making a difference!", "Being around you makes everything better", "You're a great exammple to others", "Your creative potential seems limitless", "You make me happy", "You're a great co-head-of-household"]
 var complimentElement = document.getElementById('compliment');
 var today = moment(new Date());
 function updateCompliment(firstTime) {
