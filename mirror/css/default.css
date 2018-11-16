@@ -56,6 +56,23 @@
     font-size: 100px;
 }
 
+#feels_like {
+    font-family: "HelveticaNeueLTStd-UltLt";
+    position: absolute;
+    top: 140px;
+    left: 230px;
+    width: 300px;
+    font-size: 20px;
+}
+
+#text_forecast {
+    position: absolute;
+    top: 200px;
+    width: 450px;
+    left: 30px;
+    font-size: 16px;
+}
+
 #current_weather_container {
     top: 30px;
     right: 500px;
@@ -67,7 +84,7 @@
     font-size: 20px;
     color: white;
     position: absolute;
-    top: 130px;
+    top: 170px;
     right: 290px;
 }
 

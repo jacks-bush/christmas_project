@@ -42,6 +42,10 @@ weatherDayIcons["unknown"] = "wi wi-day-sunny";
 
 var currentWeatherIconElement = document.getElementById("current_icon");
 var currentTempElement = document.getElementById("current_temp");
+var feelsLikeElement = document.getElementById("feels_like");
+var textForecastElement = document.getElementById("text_forecast");
+var fiveDayForecastContainerElement = document.getElementById("five-day-forecast");
+var incrementBetweenCurrentForecastElements = 57;
 
 function updateWeatherIcons() {
     var weatherRequest = new XMLHttpRequest();
@@ -56,18 +60,38 @@ function updateWeatherIcons() {
             var dateNow = new Date();
             var sunrise = new Date(dateNow.getFullYear(), dateNow.getMonth(), dateNow.getDate(), parseInt(jsonObj.sun_phase.sunrise.hour), parseInt(jsonObj.sun_phase.sunrise.minute))
             var sunset = new Date(dateNow.getFullYear(), dateNow.getMonth(), dateNow.getDate(), parseInt(jsonObj.sun_phase.sunset.hour), parseInt(jsonObj.sun_phase.sunset.minute))
+            var txtForecastIdx = 0;
             if (sunrise < dateNow && dateNow < sunset) { currentWeatherIconElement.className = weatherDayIcons[jsonObj.current_observation.icon]; }
-            else { currentWeatherIconElement.className = weatherNightIcons[jsonObj.current_observation.icon]; }
+            else { currentWeatherIconElement.className = weatherNightIcons[jsonObj.current_observation.icon]; txtForecastIdx = 1; }
 
-            var feelsLikeTemp = jsonObj.current_observation.feelslke_f;
+            var currentTemp = jsonObj.current_observation.temp_f;
+            var feelsLikeTemp = jsonObj.current_observation.feelslike_f;
             var windSpeed = jsonObj.current_observation.wind_mph;
             var windDirection = jsonObj.current_observation.wind_dir;
             var windDegrees = jsonObj.current_observation.wind_degrees;
-            //var snowInches = ;
-            //var rainInches = ;
-
-            currentTempElement.innerHTML = jsonObj.current_observation.temp_f + "&#176;";
+            var textForecast = jsonObj.forecast.txt_forecast.forecastday[txtForecastIdx].fcttext;
             var simpleForecastDay = jsonObj.forecast.simpleforecast.forecastday;
+            currentTempElement.innerHTML = currentTemp + "&#176;";
+
+            // position feels like and text forecast
+            // only show feels like if it is different than current temp
+            if (parseInt(currentTemp) != parseInt(feelsLikeTemp)) {
+                feelsLikeElement.innerHTML = "feels like: " + feelsLikeTemp + "&#176;";
+                // position feels like below current temp
+                feelsLikeElement.style.top = (currentTempElement.getBoundingClientRect().bottom - incrementBetweenCurrentForecastElements).toString() + "px";
+                // position text forecast below feels like
+                textForecastElement.style.top = (feelsLikeElement.getBoundingClientRect().bottom - 25).toString() + "px";
+            }
+            else {
+                // position text forecast below current weather icon
+                textForecastElement.style.top = (currentWeatherIconElement.getBoundingClientRect().bottom - 33).toString() + "px";
+            }
+            textForecastElement.innerHTML = textForecast;
+
+            // position 5 day forecast below text forecast
+            fiveDayForecastContainerElement.style.top = (textForecastElement.getBoundingClientRect().bottom - 45).toString() + "px";
+
+            // loop through next 5 days and show icon, high, and low
             for (var i = 0; i < 5; i++) {
                 var rowIncrement = 35;
                 var positionFromTop = (70 + rowIncrement * i).toString();
@@ -130,7 +154,7 @@ function updateWeatherIcons() {
 
 // *************************************** Compliment *********************************************
 
-var complimentList = ["Go kick some ass today!", "You look particularly stunning today", "You light up the room", "You have a great sense of humor", "You bring out the best in other people", "Gorgeous", "You're like sunshine on a rainy day", "You are strong and thoughful", "Your perspective is refreshing", "You have great ideas", "One day at a time!", "You are making a difference!", "Being around you makes everything better", "You're a great exammple to others", "Your creative potential seems limitless", "You make me happy", "You're a great co-head-of-household"]
+var complimentList = ["Go kick some ass today!", "You look particularly stunning today", "You light up the room", "You have a great sense of humor", "You bring out the best in other people", "Gorgeous", "You are strong and thoughful", "Your perspective is refreshing", "You have great ideas", "One day at a time!", "You are making a difference!", "Being around you makes everything better", "You're a great exammple to others", "Your creative potential seems limitless", "You make me happy", "You're a great co-head-of-household"]
 var complimentElement = document.getElementById('compliment');
 var today = moment(new Date());
 function updateCompliment(firstTime) {
